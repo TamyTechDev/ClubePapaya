@@ -1,0 +1,40 @@
+:root {
+  --color-primary: #F5B0CB;    /* Rosa Claro Suave */
+  --color-secondary: #ADEBB3;  /* Verde Menta Suave */
+  --color-accent: #EDBF85;     /* Pêssego/Dourado Suave */
+  --color-bg: #FAF8F5;         /* Fundo levemente aquecido */
+  --color-text: #333333;       /* Texto escuro legível */
+  --color-card: #FFFFFF;       /* Fundo dos cards */
+  --color-border: #E8E0D8;     /* Bordas suaves */
+  --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-main);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  min-height: 100vh;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  font-family: inherit;
+  border-radius: 8px;
+  transition: opacity 0.2s ease;
+}
+
+button:hover {
+  opacity: 0.9;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
