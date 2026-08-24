@@ -38,3 +38,21 @@
   border-radius: 8px;
   color: #333;
 }
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 0.9rem;
+}
+
+.btn-logout {
+  background-color: #f1f1f1;
+  padding: 0.4rem 0.8rem;
+  font-size: 0.85rem;
+  color: #666;
+}
+
+.btn-logout:hover {
+  background-color: #e0e0e0;
+}

@@ -1,5 +1,8 @@
 import React from 'react';
 import './Navbar.css';
+import {useAuth}  from '../context/AuthContext';
+
+const { user, logout } = useAuth();
 
 export default function Navbar() {
   return (
@@ -14,8 +17,18 @@ export default function Navbar() {
         <li><Link to="/empreendedorismo">Empreendedorismo</Link></li>
       </ul>
       <div className="navbar-auth">
+        {user ? (
+            <div className="user-info">
+                <span>{user.avatar} Olá, <strong>{user.nome}</strong> (Mãe da {user.nome}</span>
+                <button onCLick={logout} className="btn-logout"> Sair</button>
+            
+            </div>
+        ) :(
         <Link to="/login" className="btn-login">Entrar</Link>
-      </div>
+      )}
+        </div>
     </nav>
   );
 }
+
+export default Navbar
