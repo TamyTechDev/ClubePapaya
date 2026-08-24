@@ -1,30 +1,14 @@
-import React from "react";
+import React, { createContext, useContext, useState } from 'react';
 
-// Criamos o contexto
-const AuthContext = createContext();
+const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
-  // Inicializa o usuário logado com um perfil de exemplo
-  const [user, setUser] = useState({
-    nome: 'Tamy Temponi',
-    nomeBebe: 'Alice',
-    idadeBebe: '1 ano',
-    avatar: '👩‍🎨',
-    isLogged: true
-  });
+  const [user, setUser] = useState(null);
 
-  // Função para simular o Login
-  const login = (nome, nomeBebe) => {
-    setUser({
-      nome: nome || 'Mãe Cadastrada',
-      nomeBebe: nomeBebe || 'Bebê',
-      idadeBebe: '1 ano',
-      avatar: '👩‍🎨',
-      isLogged: true
-    });
+  const login = (userData) => {
+    setUser(userData);
   };
 
-  // Função para Logout
   const logout = () => {
     setUser(null);
   };
@@ -36,7 +20,10 @@ export function AuthProvider({ children }) {
   );
 }
 
-// Hook personalizado para facilitar o uso do contexto nos componentes
 export function useAuth() {
-  return useContext(AuthContext);
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error('useAuth deve ser usado dentro de um AuthProvider');
+  }
+  return context;
 }
