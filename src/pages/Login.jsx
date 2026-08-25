@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { supabase } from '../supabaseClient';
 import './Login.css';
 
 export default function Login() {
@@ -10,25 +11,99 @@ export default function Login() {
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
   
-  const { login } = useAuth();
+  const [mensagem, setMensagem] = useState({ tipo: '', texto: '' });
+  const [carregando, setCarregando] = useState(false);
+
+  const { signIn } = useAuth();
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const userData = {
-      name: nome || 'Usuária',
-      childName: filho || 'Bebê',
-      email: email
-    };
-    
-    login(userData);
-    navigate('/');
+    setMensagem({ tipo: '', texto: '' });
+
+    // 🔒 Validação de Senha Forte (apenas no cadastro)
+    if (isCadastrando) {
+      const temOitoCaracteres = senha.length >= 8;
+      const temCaractereEspecial = /[!@#$%^&*(),.?":{}|<>]/.test(senha);
+
+      if (!temOitoCaracteres || !temCaractereEspecial) {
+        setMensagem({
+          tipo: 'erro',
+          texto: 'A senha deve ter pelo menos 8 caracteres e no mínimo 1 caractere especial (ex: @, #, $, !).'
+        });
+        return;
+      }
+    }
+
+    setCarregando(true);
+
+    try {
+      if (isCadastrando) {
+        // 1. Cria a conta no Supabase Auth (salvando metadados e nome de exibição)
+        const { error: authError } = await supabase.auth.signUp({
+          email,
+          password: senha,
+          options: {
+            data: {
+              full_name: nome,
+              nome_mae: nome,
+              nome_bebe: filho
+            }
+          }
+        });
+
+        if (authError) throw authError;
+
+        // 2. Grava os dados na tabela 'cadastro' do banco
+        const { error: dbError } = await supabase
+          .from('cadastro')
+          .insert([{ nome, email, mensagem: filho }]);
+
+        if (dbError) {
+          console.error('Erro ao salvar na tabela cadastro:', dbError.message);
+        }
+
+        // 3. Fazer login automático
+        await signIn(email, senha);
+        setSenha('');
+
+        // 4. Redireciona diretamente para a rota /Feed
+        navigate('/Feed');
+      } else {
+        // Fluxo de Login Normal
+        await signIn(email, senha);
+        setSenha('');
+
+        // Redireciona para o Feed
+        navigate('/Feed');
+      }
+    } catch (error) {
+      setMensagem({
+        tipo: 'erro',
+        texto: error.message || 'Ocorreu um erro ao processar. Tente novamente.'
+      });
+    } finally {
+      setCarregando(false);
+    }
   };
 
   return (
     <div className="auth-container">
       <h2>{isCadastrando ? 'Criar Conta' : 'Entrar no Clube'}</h2>
-      
+
+      {mensagem.texto && (
+        <p style={{
+          padding: '10px',
+          borderRadius: '4px',
+          marginBottom: '10px',
+          backgroundColor: mensagem.tipo === 'erro' ? '#ffe6e6' : '#e6ffe6',
+          color: mensagem.tipo === 'erro' ? 'red' : 'green',
+          fontSize: '14px'
+        }}>
+          {mensagem.texto}
+        </p>
+      )}
+
       <form onSubmit={handleSubmit} className="auth-form">
         {isCadastrando && (
           <>
@@ -63,16 +138,20 @@ export default function Login() {
           required 
         />
 
-        <button type="submit" className="btn-auth-submit">
-          {isCadastrando ? 'Cadastrar' : 'Entrar'}
+        <button type="submit" className="btn-auth-submit" disabled={carregando}>
+          {carregando ? 'Aguarde...' : (isCadastrando ? 'Cadastrar' : 'Entrar')}
         </button>
       </form>
 
       <p className="auth-switch-text">
         {isCadastrando ? 'Já tem uma conta? ' : 'Ainda não tem conta? '}
         <button 
-          onClick={() => setIsCadastrando(!isCadastrando)} 
+          onClick={() => {
+            setIsCadastrando(!isCadastrando);
+            setMensagem({ tipo: '', texto: '' });
+          }} 
           className="btn-auth-switch"
+          type="button"
         >
           {isCadastrando ? 'Entrar' : 'Cadastre-se'}
         </button>

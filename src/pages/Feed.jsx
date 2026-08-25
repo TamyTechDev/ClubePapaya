@@ -1,14 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { supabase } from '../supabaseClient';
 import './Feed.css';
 import Navbar from '../Navbar';
 
 export default function Feed() {
   const { user } = useAuth();
 
-  // Posts iniciais de exemplo
-  const [posts, setPosts] = useState([
+  // Extrai o nome da mãe e do filho dos metadados do Supabase
+  const nomeMae = user?.user_metadata?.nome_mae || user?.user_metadata?.full_name || 'Mãe';
+  const nomeFilho = user?.user_metadata?.nome_filho || user?.user_metadata?.nome_bebe || '';
+
+  // Posts de exemplo como fallback inicial
+  const postsIniciais = [
     {
       id: 1,
       autor: 'Mariana Lima',
@@ -36,42 +41,88 @@ export default function Feed() {
       apoios: 8,
       data: 'Ontem'
     }
-  ]);
+  ];
 
-  // Estados do formulário de criação
+  const [posts, setPosts] = useState(postsIniciais);
   const [novoTexto, setNovoTexto] = useState('');
   const [categoria, setCategoria] = useState('Dúvida');
-  
-  // Estado do filtro ativo
   const [filtroCategoria, setFiltroCategoria] = useState('Todas');
+  const [carregandoPosts, setCarregandoPosts] = useState(false);
 
-  // Criar novo post
-  const handleCriarPost = (e) => {
+  // 1. Carrega as postagens da tabela 'posts' do Supabase ao abrir a tela
+  useEffect(() => {
+    async function fetchPosts() {
+      setCarregandoPosts(true);
+      const { data, error } = await supabase
+        .from('posts')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (!error && data && data.length > 0) {
+        const postsFormatados = data.map(item => ({
+          id: item.id,
+          autor: item.nome_mae || 'Mãe da Comunidade',
+          bebe: item.nome_filho ? `Mãe do(a) ${item.nome_filho}` : 'Mãe do Clube',
+          categoria: item.categoria || 'Dúvida',
+          texto: item.conteudo,
+          apoios: item.apoios || 0,
+          data: 'Recente'
+        }));
+        setPosts([...postsFormatados, ...postsIniciais]);
+      }
+      setCarregandoPosts(false);
+    }
+
+    fetchPosts();
+  }, []);
+
+  // 2. Criar novo post
+  const handleCriarPost = async (e) => {
     e.preventDefault();
     if (!novoTexto.trim()) return;
 
-    const novoPost = {
+    const rotuloBebe = nomeFilho ? `Mãe do(a) ${nomeFilho}` : 'Mãe do Clube';
+
+    const localPost = {
       id: Date.now(),
-      autor: user ? user.nome : 'Mãe Anônima',
-      bebe: user ? `Mãe da ${user.nomeBebe}` : 'Mãe da comunidade',
+      autor: nomeMae,
+      bebe: rotuloBebe,
       categoria: categoria,
       texto: novoTexto,
       apoios: 0,
       data: 'Agora mesmo'
     };
 
-    setPosts([novoPost, ...posts]);
+    // Atualiza a tela de imediato
+    setPosts([localPost, ...posts]);
     setNovoTexto('');
+
+    // Persiste na tabela 'posts' usando nome_filho
+    try {
+      await supabase
+        .from('posts')
+        .insert([
+          {
+            conteudo: novoTexto,
+            categoria: categoria,
+            nome_mae: nomeMae,
+            nome_filho: nomeFilho,
+            user_id: user?.id
+          }
+        ]);
+    } catch (err) {
+      console.warn('Post salvo apenas localmente:', err.message);
+    }
   };
 
-  // Função para dar apoio/curtir
+  // 3. Dar apoio/curtir
   const handleApoiar = (id) => {
     setPosts(posts.map(post => 
       post.id === id ? { ...post, apoios: post.apoios + 1 } : post
     ));
   };
 
-  // Filtragem dos posts
+  // 4. Filtragem
   const postsFiltrados = filtroCategoria === 'Todas' 
     ? posts 
     : posts.filter(post => post.categoria === filtroCategoria);
@@ -79,11 +130,13 @@ export default function Feed() {
   return (
     <div className="feed-container">
       <Navbar />
-      {/* Exibe a caixa de publicação se estiver logada, ou o banner pedindo login */}
+      
       {user ? (
         <div className="card-criar-post">
           <h3>Compartilhe com a comunidade 🌸</h3>
-          <p className="aviso-privacidade">🔒 Lembre-se: Por privacidade e segurança, não compartilhamos fotos das crianças no feed.</p>
+          <p className="aviso-privacidade">
+            🔒 Lembre-se: Por privacidade e segurança, não compartilhamos fotos das crianças no feed.
+          </p>
           
           <form onSubmit={handleCriarPost}>
             <textarea
@@ -131,6 +184,7 @@ export default function Feed() {
 
       {/* Lista de Posts */}
       <div className="lista-posts">
+        {carregandoPosts && <p style={{ textAlign: 'center' }}>Carregando publicações...</p>}
         {postsFiltrados.map(post => (
           <div key={post.id} className="card-post">
             <div className="post-header">
