@@ -1,6 +1,7 @@
 import { createClient } from '@supabase/supabase-js'
 
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || 'https://zscxlfjzwfqiwquqjurq.supabase.co'
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || 'sb_publishable_KdD41evoWP61t1ZsOE7wwA_rq7rIs4B'
+const supabaseUrl = 'https://zscxlfjzwfqiwquqjurq.supabase.co'
+// Cole abaixo a chave que você viu na aba "Legacy anon, service_role API keys" (começa com eyJ...)
+const supabaseAnonKey = ':eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpzY3hsZmp6d2ZxaXdxdXFqdXJxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODc2NjkwNjUsImV4cCI6MjEwMzI0NTA2NX0.5fBQ_bHe7mNtZkKZt-EnxGJoto--_K7wyAqosozbIgk'
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey)
