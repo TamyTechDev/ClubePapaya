@@ -1,10 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useAuth } from '../context/AuthContext';
+import { supabase } from '../supabaseClient';
 import './Bazar.css';
 import Navbar from '../Navbar';
 
 export default function Bazar() {
-  // Estado inicial com itens de exemplo
-  const [itens, setItens] = useState([
+  const { user } = useAuth();
+
+  // Nome da usuária logada vindo do Supabase
+  const nomeAnunciante = user?.user_metadata?.nome_mae || user?.user_metadata?.full_name || 'Mãe da Comunidade';
+
+  // Anúncios de exemplo como fallback inicial
+  const itensIniciais = [
     {
       id: 1,
       nome: 'Berço Americano de Madeira com Colchão',
@@ -35,7 +42,10 @@ export default function Bazar() {
       anunciante: 'Fernanda Souza',
       contato: '(11) 96666-5555'
     }
-  ]);
+  ];
+
+  const [itens, setItens] = useState(itensIniciais);
+  const [carregando, setCarregando] = useState(false);
 
   // Estados do formulário de novo item
   const [nome, setNome] = useState('');
@@ -43,28 +53,80 @@ export default function Bazar() {
   const [tipo, setTipo] = useState('Doação');
   const [preco, setPreco] = useState('');
   const [imagem, setImagem] = useState('');
-  
+
   // Estado de filtro do Bazar
   const [filtroTipo, setFiltroTipo] = useState('Tudo');
 
-  // Adicionar item
-  const handleCriarAnuncio = (e) => {
+  // 1. Busca anúncios cadastrados na tabela 'bazar' do Supabase
+  useEffect(() => {
+    async function fetchItens() {
+      setCarregando(true);
+      const { data, error } = await supabase
+        .from('bazar')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (!error && data && data.length > 0) {
+        const itensDoBanco = data.map(item => ({
+          id: item.id,
+          nome: item.nome,
+          categoria: item.categoria,
+          tipo: item.tipo,
+          preco: item.preco || (item.tipo === 'Doação' ? 'Grátis' : 'A combinar'),
+          imagem: item.imagem || 'https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?w=400&q=80',
+          anunciante: item.anunciante || 'Mãe do Clube',
+          contato: item.contato || 'Contato via Chat'
+        }));
+        setItens([...itensDoBanco, ...itensIniciais]);
+      }
+      setCarregando(false);
+    }
+
+    fetchItens();
+  }, []);
+
+  // 2. Adicionar novo item no Supabase
+  const handleCriarAnuncio = async (e) => {
     e.preventDefault();
     if (!nome.trim()) return;
 
-    const novoItem = {
+    const precoFinal = tipo === 'Doação' ? 'Grátis' : (preco.trim() ? `R$ ${preco}` : 'A combinar');
+    const imagemFinal = imagem.trim() || 'https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?w=400&q=80';
+
+    const novoItemLocal = {
       id: Date.now(),
       nome,
       categoria,
       tipo,
-      preco: tipo === 'Doação' ? 'Grátis' : (preco ? `R$ ${preco}` : 'A combinar'),
-      imagem: imagem.trim() || 'https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?w=400&q=80',
-      anunciante: 'Você',
+      preco: precoFinal,
+      imagem: imagemFinal,
+      anunciante: nomeAnunciante,
       contato: 'Contato via Chat'
     };
 
-    setItens([novoItem, ...itens]);
-    
+    // Atualiza o estado da tela de imediato
+    setItens([novoItemLocal, ...itens]);
+
+    // Salva na tabela 'bazar' do Supabase
+    try {
+      await supabase
+        .from('bazar')
+        .insert([
+          {
+            nome,
+            categoria,
+            tipo,
+            preco: precoFinal,
+            imagem: imagemFinal,
+            anunciante: nomeAnunciante,
+            contato: 'Contato via Chat',
+            user_id: user?.id
+          }
+        ]);
+    } catch (err) {
+      console.warn('Erro ao persistir no Supabase:', err.message);
+    }
+
     // Limpar formulário
     setNome('');
     setPreco('');
@@ -169,6 +231,7 @@ export default function Bazar() {
           </div>
 
           {/* Grid de Cards */}
+          {carregando && <p style={{ textAlign: 'center' }}>Carregando itens do bazar...</p>}
           <div className="grid-bazar">
             {itensFiltrados.map(item => (
               <div key={item.id} className="card-item-bazar">
