@@ -1,7 +1,7 @@
 import { createClient } from '@supabase/supabase-js'
 
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY
+// Pega a variável de ambiente se existir, caso contrário usa a chave direta
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || 'https://zscxlfjzwfqiwquqjurq.supabase.co'
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || 'sb_publishable_KdD41evoWP61t1ZsOE7wwA_rq7rIs4B'
 
-// Certifique-se de que a palavra "export" está antes do "const"
 export const supabase = createClient(supabaseUrl, supabaseAnonKey)
