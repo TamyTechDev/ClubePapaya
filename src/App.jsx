@@ -8,6 +8,7 @@ import TimeLine from './pages/TimeLine';
 import Empreendedorismo from './pages/Empreendedorismo';
 import Login from './pages/Login';
 import ProtectedRoute from "./pages/ProtectedRoute";
+import Bemvindo from './pages/Bemvindo';
 
 export default function App() {
   return (
@@ -17,7 +18,8 @@ export default function App() {
         <Routes>
           {/* Rotas Públicas */}
           <Route path="/empreendedorismo" element={<Empreendedorismo />} />
-          <Route path="/" element={<Feed />} />
+          <Route path="/" element={<Bemvindo />} />
+           <Route path="/Feed" element={<Feed />} />
           <Route path="/login" element={<Login />} />
 
           {/* Rotas Protegidas (exigem login) */}

@@ -10,13 +10,13 @@ function Navbar() {
   return (
     <nav className="navbar">
       <div className="navbar-logo">
-        <Link to="/">
+        <Link to="/Feed">
           <img src="/CLUBEPAPAYA_LOGO_PNG.png" alt="Clube Papaya" className="logo-img" />
         </Link>
       </div>
 
       <ul className="navbar-links">
-        <li><Link to="/">Inicio</Link></li>
+        <li><Link to="/Feed">Inicio</Link></li>
         <li><Link to="/bazar">Bazar</Link></li>
         <li><Link to="/timeline">Guia</Link></li>
         <li><Link to="/empreendedorismo">Newsletter</Link></li>

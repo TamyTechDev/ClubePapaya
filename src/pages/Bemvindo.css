@@ -1,0 +1,10 @@
+.banner{
+    display: flex;
+    align-items: center;
+    margin-top: 0;
+}
+
+img{
+    width:800px ;
+    height: 100%;
+}
