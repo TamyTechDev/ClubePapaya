@@ -9,6 +9,8 @@ import Empreendedorismo from './pages/Empreendedorismo';
 import Login from './pages/Login';
 import ProtectedRoute from "./pages/ProtectedRoute";
 import Bemvindo from './pages/Bemvindo';
+// Veja se a importação aponta exatamente para o seu arquivo ajustado:
+import { supabase } from './supabaseClient';
 
 export default function App() {
   return (
