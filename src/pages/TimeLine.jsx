@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react';
+import Navbar from '../Navbar';
 
 // Dados completos das 13 fases de desenvolvimento
 const FASES = [
@@ -338,6 +339,7 @@ export default function TimeLine() {
 
   return (
     <div style={styles.container}>
+      <Navbar />
       {/* ESTILOS CSS INJETADOS PARA ANIMAÇÕES E SCROLLBAR */}
       <style>{`
         .timeline-scroll::-webkit-scrollbar {

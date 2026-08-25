@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import './Feed.css';
+import Navbar from '../Navbar';
 
 export default function Feed() {
   const { user } = useAuth();
@@ -77,6 +78,7 @@ export default function Feed() {
 
   return (
     <div className="feed-container">
+      <Navbar />
       {/* Exibe a caixa de publicação se estiver logada, ou o banner pedindo login */}
       {user ? (
         <div className="card-criar-post">

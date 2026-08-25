@@ -14,7 +14,6 @@ export default function App() {
   return (
     <AuthProvider>
       <Router>
-        <Navbar />
         <Routes>
           {/* Rotas Públicas */}
           <Route path="/empreendedorismo" element={<Empreendedorismo />} />

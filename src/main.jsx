@@ -5,6 +5,6 @@ import './index.css' // <-- Esta linha garante que as cores globais funcionem!
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <App />
+      <App />
   </React.StrictMode>,
 )

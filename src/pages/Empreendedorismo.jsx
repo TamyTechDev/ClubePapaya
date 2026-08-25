@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Empreendedorismo.css';
+import Navbar from '../Navbar';
 
 // Lista de edições recentes da Newsletter
 const EDICOES_NEWSLETTER = [
@@ -105,6 +106,7 @@ export default function Empreendedorismo() {
 
   return (
     <div className="newsletter-container">
+      <Navbar />
       {/* SEÇÃO HERO DA NEWSLETTER */}
       <header className="newsletter-hero">
         <span className="hero-badge">💌 Edição Semanal</span>

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './Bazar.css';
+import Navbar from '../Navbar';
 
 export default function Bazar() {
   // Estado inicial com itens de exemplo
@@ -77,6 +78,7 @@ export default function Bazar() {
 
   return (
     <div className="bazar-container">
+      <Navbar />
       <div className="bazar-header">
         <h2>🛍️ Bazar de Trocas & Doações</h2>
         <p>Promova a economia circular entre mães. Anuncie o que seu bebê não usa mais!</p>
