@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import { useAuth } from './context/AuthContext';
+import Logo from './images/CLUBEPAPAYA_LOGO_PNG.png';
 import './Navbar.css';
 
 function Navbar() {
@@ -11,7 +12,7 @@ function Navbar() {
     <nav className="navbar">
       <div className="navbar-logo">
         <Link to="/Feed">
-          <img src="/CLUBEPAPAYA_LOGO_PNG.png" alt="Clube Papaya" className="logo-img" />
+          <img src={Logo} alt="Clube Papaya" className="logo-img" />
         </Link>
       </div>
 
