@@ -1,62 +1,63 @@
-import { createContext, useContext, useEffect, useState } from 'react'
-import { supabase } from '../supabaseClient'
+import React, { createContext, useContext, useState, useEffect } from 'react';
+import { supabase } from '../supabaseClient';
 
-const AuthContext = createContext()
+const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState(null)
-  const [loading, setLoading] = useState(true)
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // 1. Checa a sessão atual assim que o app carrega
+    // 1. Busca a sessão atual no Supabase assim que o app carrega
     supabase.auth.getSession().then(({ data: { session } }) => {
-      setUser(session?.user ?? null)
-      setLoading(false)
-    })
+      setUser(session?.user ?? null);
+      setLoading(false);
+    });
 
-    // 2. Escuta mudanças no estado de autenticação em tempo real
+    // 2. Escuta mudanças de autenticação (login, logout, etc) em tempo real
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      setUser(session?.user ?? null)
-      setLoading(false)
-    })
+      setUser(session?.user ?? null);
+      setLoading(false);
+    });
 
-    return () => subscription.unsubscribe()
-  }, [])
+    return () => subscription.unsubscribe();
+  }, []);
 
-  // Função para criar nova conta
-  async function signUp(email, password) {
-    const { data, error } = await supabase.auth.signUp({
-      email,
-      password,
-    })
-    if (error) throw error
-    return data
-  }
-
-  // Função para fazer login
-  async function signIn(email, password) {
+  // Função signIn
+  const signIn = async (email, password) => {
     const { data, error } = await supabase.auth.signInWithPassword({
       email,
       password,
-    })
-    if (error) throw error
-    return data
-  }
+    });
+    if (error) throw error;
+    setUser(data.user); // Atualiza o estado de imediato
+    return data;
+  };
 
-  // Função para fazer logout (sair)
-  async function signOut() {
-    const { error } = await supabase.auth.signOut()
-    if (error) throw error
-  }
+  // Função signOut
+  const signOut = async () => {
+    await supabase.auth.signOut();
+    setUser(null);
+  };
+
+  const value = {
+    user,
+    loading,
+    signIn,
+    signOut
+  };
 
   return (
-    <AuthContext.Provider value={{ user, loading, signUp, signIn, signOut }}>
+    <AuthContext.Provider value={value}>
       {!loading && children}
     </AuthContext.Provider>
-  )
+  );
 }
 
-// Hook personalizado para usar o contexto facilmente nos componentes
-export function useAuth() {
-  return useContext(AuthContext)
-}
+export const useAuth = () => {
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error('useAuth deve ser usado dentro de um AuthProvider');
+  }
+  return context;
+};

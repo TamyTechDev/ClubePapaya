@@ -1,222 +1,171 @@
-/* 1. Layout Geral do Bazar */
-.bazar-container {
+.landing-page {
+  background-color: #fffbf2;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
 }
 
-.bazar-header h2 {
-  font-size: 1.8rem;
-  color: #333;
-}
-
-.bazar-header p {
-  color: #666;
-  font-size: 0.95rem;
-}
-
-.bazar-layout {
-  display: grid;
-  grid-template-columns: 320px 1fr;
-  gap: 1.5rem;
-}
-
-@media (max-width: 850px) {
-  .bazar-layout {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* 2. Formulário de Anúncio */
-.card-formulario-bazar {
-  background-color: var(--color-card, #ffffff);
+/* Hero Section */
+.hero-section {
   padding: 1.5rem;
-  border-radius: 12px;
-  border: 1px solid var(--color-border, #e8e0d8);
-  height: fit-content;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
 }
 
-.card-formulario-bazar h3 {
-  margin-bottom: 1rem;
-  font-size: 1.1rem;
-}
-
-.card-formulario-bazar .form-group {
-  margin-bottom: 1rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.3rem;
-}
-
-.card-formulario-bazar label {
-  font-size: 0.85rem;
-  font-weight: 600;
-}
-
-.card-formulario-bazar input,
-.card-formulario-bazar select {
-  padding: 0.6rem;
-  border: 1px solid var(--color-border, #e8e0d8);
-  border-radius: 6px;
-  font-family: inherit;
-  outline: none;
-}
-
-.card-formulario-bazar input:focus,
-.card-formulario-bazar select:focus {
-  border-color: var(--papaya-primary, #f4a261);
-}
-
-/* 3. Vitrine e Filtros */
-.bazar-filtros {
-  display: flex;
-  gap: 0.8rem;
-  margin-bottom: 1.2rem;
-}
-
-.btn-filtro-bazar {
-  background-color: #fff;
-  border: 1px solid var(--color-border, #e8e0d8);
-  padding: 0.5rem 1rem;
-  font-size: 0.9rem;
-  color: #555;
-  border-radius: 20px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.btn-filtro-bazar:hover {
-  background-color: #f5f5f5;
-}
-
-.btn-filtro-bazar.ativo {
-  background-color: #ADEBB3;
-  color: #1a4320;
-  font-weight: bold;
-  border-color: #92dca2;
-}
-
-.grid-bazar {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: 1.2rem;
-}
-
-.card-item-bazar {
-  background-color: var(--color-card, #ffffff);
-  border-radius: 12px;
-  border: 1px solid var(--color-border, #e8e0d8);
-  overflow: hidden;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.02);
-  display: flex;
-  flex-direction: column;
-}
-
-.imagem-container {
+.banner-wrapper {
   position: relative;
-  height: 160px;
-  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+  background-color: #ffe6a7;
+  border-radius: 24px;
+  padding: 2rem;
+  overflow: hidden;
 }
 
-.imagem-container img {
-  width: 100%;
-  height: 100%;
+.banner-img {
+  width: 55%;
+  height: auto;
+  border-radius: 16px;
   object-fit: cover;
 }
 
-.badge-tipo {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  padding: 0.3rem 0.7rem;
+.login-container {
+  width: 40%;
+}
+
+/* Propósito (Banner em Destaque Topo/Meio) */
+.proposito-section {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 1.5rem;
+  width: 100%;
+}
+
+.proposito-banner {
+  background: linear-gradient(135deg, var(--papaya-primary, #f4a261) 0%, #e76f51 100%);
+  color: #ffffff;
+  padding: 3rem 2rem;
   border-radius: 20px;
-  font-size: 0.8rem;
-  font-weight: bold;
-}
-
-.badge-tipo.doação {
-  background-color: #ADEBB3;
-  color: #114216;
-}
-
-.badge-tipo.venda {
-  background-color: #F5B0CB;
-  color: #4a192c;
-}
-
-.card-conteudo {
-  padding: 1rem;
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-}
-
-.categoria-tag {
-  font-size: 0.75rem;
-  color: #888;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  margin-bottom: 0.3rem;
-}
-
-.card-conteudo h4 {
-  font-size: 0.95rem;
-  color: #333;
-  margin-bottom: 1rem;
-  line-height: 1.3;
-  flex: 1;
-}
-
-.card-rodape-item {
-  display: flex;
-  flex-direction: column;
-  gap: 0.6rem;
-  border-top: 1px solid #f5f5f5;
-  padding-top: 0.8rem;
-}
-
-.anunciante {
-  font-size: 0.8rem;
-  color: #666;
-}
-
-/* BOTÃO TENHO INTERESSE (Corrigido e Padronizado) */
-.btn-tenho-interesse {
-  background-color: var(--papaya-primary, #f4a261);
-  color: #ffffff;
-  border: none;
-  padding: 8px 18px;
-  border-radius: var(--papaya-radius, 12px);
-  font-weight: 600;
-  cursor: pointer;
-  width: 100%;
   text-align: center;
-  transition: background-color 0.2s ease, transform 0.1s ease;
+  box-shadow: 0 4px 15px rgba(244, 162, 97, 0.2);
 }
 
-.btn-tenho-interesse:hover {
-  background-color: var(--papaya-primary-hover, #e76f51);
-  transform: translateY(-1px);
+.proposito-banner h2 {
+  font-size: 2rem;
+  margin-bottom: 0.8rem;
 }
-/* BOTÃO DO FORMULÁRIO DE ANÚNCIO (Padronizado) */
-.card-formulario-bazar button[type="submit"],
-.btn-publicar-anuncio {
-  background-color: var(--papaya-primary, #f4a261);
-  color: #ffffff;
+
+.proposito-banner p {
+  font-size: 1.1rem;
+  max-width: 750px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* Sobre */
+.sobre-section {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 0 1.5rem;
+  text-align: center;
+}
+
+.sobre-content h2 {
+  font-size: 1.8rem;
+  color: #2b2d42;
+  margin-bottom: 1rem;
+}
+
+.sobre-content p {
+  font-size: 1rem;
+  color: #555555;
+  line-height: 1.6;
+}
+
+/* Modal de Convidados */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 16px;
+  max-width: 480px;
+  width: 90%;
+  position: relative;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+.modal-fechar {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
   border: none;
-  padding: 0.6rem 1.2rem;
-  border-radius: var(--papaya-radius, 12px);
-  font-weight: bold;
-  font-size: 0.95rem;
+  font-size: 1.2rem;
   cursor: pointer;
-  width: 100%;
-  transition: background-color 0.2s ease, transform 0.1s ease;
-  margin-top: 0.5rem;
+  color: #888;
 }
 
-.card-formulario-bazar button[type="submit"]:hover,
-.btn-publicar-anuncio:hover {
-  background-color: var(--papaya-primary-hover, #e76f51);
-  transform: translateY(-1px);
+.modal-content h3 {
+  margin-bottom: 0.5rem;
+  color: #2b2d42;
+}
+
+.modal-content p {
+  font-size: 0.85rem;
+  color: #666;
+  margin-bottom: 1.2rem;
+}
+
+.form-convidados {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.form-convidados input,
+.form-convidados textarea {
+  padding: 0.7rem 0.9rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 0.9rem;
+  outline: none;
+}
+
+.form-convidados input:focus,
+.form-convidados textarea:focus {
+  border-color: var(--papaya-primary, #f4a261);
+}
+
+.alerta-sucesso {
+  background-color: #e6f4ea;
+  color: #137333;
+  padding: 1rem;
+  border-radius: 8px;
+  text-align: center;
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .banner-wrapper {
+    flex-direction: column;
+  }
+  .banner-img, .login-container {
+    width: 100%;
+  }
 }

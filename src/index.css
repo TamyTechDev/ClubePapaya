@@ -1,5 +1,5 @@
 :root {
-    --papaya-primary: #f27457; /* Cor do botão Sair */
+  --papaya-primary: #f27457; /* Cor do botão Sair */
   --papaya-primary-hover: #e05e40;
   --papaya-bg: #fffbf2;
   --papaya-text: #333333;
@@ -19,42 +19,56 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
 
-  @media (max-width: 1024px) {
+@media (max-width: 1024px) {
+  :root {
     font-size: 16px;
   }
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-  --color-primary: #F5B0CB;
-  --color-secondary: #ADEBB3;
-  --color-accent: #EDBF85;
-  --color-bg: #FAF8F5;
-  --color-text: #333333;
-  --color-card: #FFFFFF;
-  --color-border: #E8E0D8;
-}
+    --color-primary: #F5B0CB;
+    --color-secondary: #ADEBB3;
+    --color-accent: #EDBF85;
+    --color-bg: #FAF8F5;
+    --color-text: #333333;
+    --color-card: #FFFFFF;
+    --color-border: #E8E0D8;
+  }
 
-body {
-  margin: 0;
-  font-family: system-ui, -apple-system, sans-serif;
-  background-color: var(--color-bg);
-  color: var(--color-text);
-}
+  body {
+    margin: 0;
+    font-family: system-ui, -apple-system, sans-serif;
+    background-color: var(--color-bg);
+    color: var(--color-text);
+  }
+
   #social .button-icon {
     filter: invert(1) brightness(2);
   }
+} /* Fechamento que estava faltando no media query */
+
+/* Reset Global de Margens e Ocupação de Tela */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
+html, body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
 
 #root {
-  width: 1126px;
+  width: 100%; /* Ajustado para ocupar 100% da tela e liberar a Navbar */
   max-width: 100%;
   margin: 0 auto;
   text-align: center;
-  border-inline: 1px solid var(--border);
-  min-height: 100svh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
@@ -71,20 +85,28 @@ h1 {
   font-size: 56px;
   letter-spacing: -1.68px;
   margin: 32px 0;
-  @media (max-width: 1024px) {
+}
+
+@media (max-width: 1024px) {
+  h1 {
     font-size: 36px;
     margin: 20px 0;
   }
 }
+
 h2 {
   font-size: 24px;
   line-height: 118%;
   letter-spacing: -0.24px;
   margin: 0 0 8px;
-  @media (max-width: 1024px) {
+}
+
+@media (max-width: 1024px) {
+  h2 {
     font-size: 20px;
   }
 }
+
 p {
   margin: 0;
 }
@@ -103,6 +125,7 @@ code {
   padding: 4px 8px;
   background: var(--code-bg);
 }
+
 .btn-papaya {
   background-color: var(--papaya-primary);
   color: #ffffff;

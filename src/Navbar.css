@@ -1,20 +1,33 @@
 /* 1. Variáveis de Cores e Estilos Globais do Clube Papaya */
 :root {
-  --papaya-primary: #f4a261; /* Cor padrão baseada no botão Sair */
+  --papaya-primary: #f4a261;
   --papaya-primary-hover: #e76f51;
   --papaya-mint-hover: #ADEBB3;
   --papaya-radius: 12px;
 }
 
-/* 2. Container da Navbar */
+/* 2. Container da Navbar (Fundo Branco Total 100vw com Conteúdo Alinhado) */
 .navbar {
+  width: 100vw !important;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw !important;
+  margin-right: -50vw !important;
+  background-color: #ffffff !important;
+  box-sizing: border-box;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 2rem;
-  background-color: #ffffff;
-  border-bottom: 2px solid #e8e0d8;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  padding: 1rem calc((100vw - 1200px) / 2 + 1.5rem);
+}
+
+@media (max-width: 1250px) {
+  .navbar {
+    padding: 1rem 2rem;
+  }
 }
 
 .logo-img {
@@ -23,11 +36,19 @@
   display: block;
 }
 
-/* 3. Links da Navbar */
+/* 3. Links da Navbar e Alinhamento */
 .navbar-links {
   display: flex;
+  align-items: center;
   gap: 1.5rem;
   list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar-links li {
+  display: flex;
+  align-items: center;
 }
 
 .navbar-links a {
@@ -44,7 +65,27 @@
   color: #1a4320;
 }
 
-/* 4. Usuário e Botões */
+/* 4. Botão Especial "Convidados" */
+.btn-nav-link {
+  background: none;
+  border: none;
+  font-weight: 600;
+  color: #555555;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 0.5rem 0.9rem;
+  border-radius: 8px;
+  line-height: normal;
+  font-family: inherit;
+  transition: all 0.2s ease;
+}
+
+.btn-nav-link:hover {
+  background-color: var(--papaya-mint-hover);
+  color: #1a4320;
+}
+
+/* 5. Usuário Autenticado e Botões */
 .navbar-user {
   display: flex;
   align-items: center;
@@ -57,7 +98,6 @@
   white-space: nowrap;
 }
 
-/* 5. CLASSE UNIVERSAL DOS BOTÕES (Estilo Botão Sair) */
 .btn-papaya, 
 .btn-logout {
   background-color: var(--papaya-primary);

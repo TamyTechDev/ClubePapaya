@@ -21,7 +21,6 @@ export default function Login() {
     e.preventDefault();
     setMensagem({ tipo: '', texto: '' });
 
-    // 🔒 Validação de Senha Forte (apenas no cadastro)
     if (isCadastrando) {
       const temOitoCaracteres = senha.length >= 8;
       const temCaractereEspecial = /[!@#$%^&*(),.?":{}|<>]/.test(senha);
@@ -39,7 +38,6 @@ export default function Login() {
 
     try {
       if (isCadastrando) {
-        // 1. Cria a conta no Supabase Auth (salvando metadados e nome de exibição)
         const { error: authError } = await supabase.auth.signUp({
           email,
           password: senha,
@@ -54,7 +52,6 @@ export default function Login() {
 
         if (authError) throw authError;
 
-        // 2. Grava os dados na tabela 'cadastro' do banco
         const { error: dbError } = await supabase
           .from('cadastro')
           .insert([{ nome, email, mensagem: filho }]);
@@ -63,19 +60,13 @@ export default function Login() {
           console.error('Erro ao salvar na tabela cadastro:', dbError.message);
         }
 
-        // 3. Fazer login automático
         await signIn(email, senha);
         setSenha('');
-
-        // 4. Redireciona diretamente para a rota /Feed
-        navigate('/Feed');
+        navigate('/feed'); // Corrigido para minúsculo
       } else {
-        // Fluxo de Login Normal
         await signIn(email, senha);
         setSenha('');
-
-        // Redireciona para o Feed
-        navigate('/Feed');
+        navigate('/feed'); // Corrigido para minúsculo
       }
     } catch (error) {
       setMensagem({
