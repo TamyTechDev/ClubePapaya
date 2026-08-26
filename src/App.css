@@ -180,5 +180,14 @@
   &::after {
     right: 0;
     border-right-color: var(--border);
-  }
+  };
+  .root {
+  --papaya-primary: #f27457; /* Cor do botão Sair */
+  --papaya-primary-hover: #e05e40;
+  --papaya-bg: #fffbf2;
+  --papaya-text: #333333;
+  --papaya-card-bg: #ffffff;
+  --papaya-radius: 20px;
 }
+  }
+

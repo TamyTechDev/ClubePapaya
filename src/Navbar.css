@@ -1,20 +1,29 @@
+/* 1. Variáveis de Cores e Estilos Globais do Clube Papaya */
+:root {
+  --papaya-primary: #f4a261; /* Cor padrão baseada no botão Sair */
+  --papaya-primary-hover: #e76f51;
+  --papaya-mint-hover: #ADEBB3;
+  --papaya-radius: 12px;
+}
+
+/* 2. Container da Navbar */
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
-  background-color: var(--color-card, #ffffff);
-  border-bottom: 2px solid var(--color-border, #e8e0d8);
-  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  background-color: #ffffff;
+  border-bottom: 2px solid #e8e0d8;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
-.navbar-logo a {
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: #333333;
-  text-decoration: none;
+.logo-img {
+  height: 60px;
+  width: auto;
+  display: block;
 }
 
+/* 3. Links da Navbar */
 .navbar-links {
   display: flex;
   gap: 1.5rem;
@@ -31,46 +40,11 @@
 }
 
 .navbar-links a:hover {
-  background-color: #ADEBB3; /* Verde Menta Suave */
+  background-color: var(--papaya-mint-hover);
   color: #1a4320;
 }
 
-.user-info {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  font-size: 0.9rem;
-  color: #444;
-}
-
-.btn-logout {
-  background-color: #EDBF85; /* Pêssego/Dourado */
-  padding: 0.5rem 1rem;
-  font-size: 0.85rem;
-  font-weight: bold;
-  color: #4a3210;
-  border-radius: 6px;
-  border: none;
-}
-
-.btn-login {
-  background-color: #F5B0CB; /* Rosa Claro */
-  padding: 0.6rem 1.2rem;
-  font-weight: bold;
-  border-radius: 8px;
-  color: #4a192c;
-  text-decoration: none;
-  display: inline-block;
-}
-
-.btn-logout:hover, .btn-login:hover {
-  opacity: 0.85;
-}
-.logo-img {
-  height: 60px;
-  width: auto;
-  display: block;
-}
+/* 4. Usuário e Botões */
 .navbar-user {
   display: flex;
   align-items: center;
@@ -83,22 +57,26 @@
   white-space: nowrap;
 }
 
-.child-info {
-  color: #6c757d;
-  font-size: 0.8rem;
-}
-
+/* 5. CLASSE UNIVERSAL DOS BOTÕES (Estilo Botão Sair) */
+.btn-papaya, 
 .btn-logout {
-  background-color: #f4a261;
-  color: #fff;
+  background-color: var(--papaya-primary);
+  color: #ffffff !important;
   border: none;
-  padding: 0.4rem 0.9rem;
-  border-radius: 8px;
-  cursor: pointer;
+  padding: 0.5rem 1.2rem;
+  border-radius: var(--papaya-radius);
   font-weight: 600;
-  transition: opacity 0.2s;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition: background-color 0.2s ease, transform 0.1s ease;
 }
 
+.btn-papaya:hover, 
 .btn-logout:hover {
-  opacity: 0.9;
+  background-color: var(--papaya-primary-hover);
+  transform: translateY(-1px);
+  opacity: 1;
 }

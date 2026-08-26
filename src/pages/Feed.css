@@ -1,3 +1,4 @@
+/* 1. Card Criar Post */
 .feed-container {
   width: 90%;
   max-width: 900px;
@@ -7,7 +8,6 @@
   gap: 1.5rem;
 }
 
-/* Card Criar Post */
 .card-criar-post {
   background-color: var(--color-card, #ffffff);
   padding: 1.5rem;
@@ -39,7 +39,7 @@
 }
 
 .card-criar-post textarea:focus {
-  border-color: #F5B0CB;
+  border-color: var(--papaya-primary, #f4a261);
 }
 
 .form-rodape {
@@ -55,16 +55,27 @@
   border: 1px solid var(--color-border, #e8e0d8);
   background-color: #fcfcfc;
   font-family: inherit;
+  cursor: pointer;
 }
 
+/* BOTÃO PUBLICAR (Padronizado no estilo do botão Sair) */
 .btn-publicar {
-  background-color: #F5B0CB;
+  background-color: var(--papaya-primary, #f4a261);
+  color: #ffffff;
+  border: none;
   padding: 0.5rem 1.2rem;
+  border-radius: var(--papaya-radius, 12px);
   font-weight: bold;
-  color: #333;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
 }
 
-/* Filtros */
+.btn-publicar:hover {
+  background-color: var(--papaya-primary-hover, #e76f51);
+  transform: translateY(-1px);
+}
+
+/* 2. Filtros do Feed */
 .filtros-feed {
   display: flex;
   align-items: center;
@@ -80,19 +91,28 @@
 
 .btn-filtro {
   background-color: #efefef;
-  padding: 0.4rem 0.8rem;
+  padding: 0.4rem 0.9rem;
   font-size: 0.85rem;
   border-radius: 20px;
   color: #555;
+  border: 1px solid transparent;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.btn-filtro:hover {
+  background-color: #e2e2e2;
 }
 
 .btn-filtro.ativo {
   background-color: #ADEBB3;
   color: #1a4320;
   font-weight: bold;
+  border-color: #92dca2;
 }
 
-/* Lista de Posts */
+/* 3. Lista de Posts */
 .lista-posts {
   display: flex;
   flex-direction: column;
@@ -119,9 +139,10 @@
   color: #777;
 }
 
+/* Tags de Categoria */
 .tag-categoria {
   font-size: 0.75rem;
-  padding: 0.2rem 0.6rem;
+  padding: 0.3rem 0.8rem;
   border-radius: 12px;
   font-weight: bold;
 }
@@ -151,16 +172,21 @@
   color: #999;
 }
 
+/* BOTÃO APOIO (Suave com hover em tom institucional) */
 .btn-apoio {
-  background-color: transparent;
-  color: #888;
+  background-color: #fffaf5;
+  color: var(--papaya-primary, #f4a261);
   font-size: 0.85rem;
-  padding: 0.3rem 0.6rem;
-  border: 1px solid #eee;
+  padding: 0.4rem 0.8rem;
+  border: 1px solid #fce8d5;
+  border-radius: 20px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
 .btn-apoio:hover {
-  background-color: #fff0f5;
-  color: #d81b60;
-  border-color: #F5B0CB;
+  background-color: var(--papaya-primary, #f4a261);
+  color: #ffffff;
+  border-color: var(--papaya-primary, #f4a261);
 }

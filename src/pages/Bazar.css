@@ -1,3 +1,4 @@
+/* 1. Layout Geral do Bazar */
 .bazar-container {
   display: flex;
   flex-direction: column;
@@ -26,7 +27,7 @@
   }
 }
 
-/* Formulário de Anúncio */
+/* 2. Formulário de Anúncio */
 .card-formulario-bazar {
   background-color: var(--color-card, #ffffff);
   padding: 1.5rem;
@@ -62,16 +63,12 @@
   outline: none;
 }
 
-.btn-anunciar {
-  width: 100%;
-  background-color: #ADEBB3;
-  color: #1a4320;
-  font-weight: bold;
-  padding: 0.8rem;
-  margin-top: 0.5rem;
+.card-formulario-bazar input:focus,
+.card-formulario-bazar select:focus {
+  border-color: var(--papaya-primary, #f4a261);
 }
 
-/* Vitrine */
+/* 3. Vitrine e Filtros */
 .bazar-filtros {
   display: flex;
   gap: 0.8rem;
@@ -85,13 +82,19 @@
   font-size: 0.9rem;
   color: #555;
   border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-filtro-bazar:hover {
+  background-color: #f5f5f5;
 }
 
 .btn-filtro-bazar.ativo {
-  background-color: #EDBF85;
-  color: #4a3210;
+  background-color: #ADEBB3;
+  color: #1a4320;
   font-weight: bold;
-  border-color: #EDBF85;
+  border-color: #92dca2;
 }
 
 .grid-bazar {
@@ -178,16 +181,42 @@
   color: #666;
 }
 
+/* BOTÃO TENHO INTERESSE (Corrigido e Padronizado) */
 .btn-tenho-interesse {
-  background-color: var(--color-bg, #FAF8F5);
-  border: 1px solid var(--color-border, #e8e0d8);
-  padding: 0.5rem;
-  font-size: 0.85rem;
-  color: #444;
+  background-color: var(--papaya-primary, #f4a261);
+  color: #ffffff;
+  border: none;
+  padding: 8px 18px;
+  border-radius: var(--papaya-radius, 12px);
   font-weight: 600;
+  cursor: pointer;
+  width: 100%;
+  text-align: center;
+  transition: background-color 0.2s ease, transform 0.1s ease;
 }
 
 .btn-tenho-interesse:hover {
-  background-color: #F5B0CB;
-  border-color: #F5B0CB;
+  background-color: var(--papaya-primary-hover, #e76f51);
+  transform: translateY(-1px);
+}
+/* BOTÃO DO FORMULÁRIO DE ANÚNCIO (Padronizado) */
+.card-formulario-bazar button[type="submit"],
+.btn-publicar-anuncio {
+  background-color: var(--papaya-primary, #f4a261);
+  color: #ffffff;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: var(--papaya-radius, 12px);
+  font-weight: bold;
+  font-size: 0.95rem;
+  cursor: pointer;
+  width: 100%;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  margin-top: 0.5rem;
+}
+
+.card-formulario-bazar button[type="submit"]:hover,
+.btn-publicar-anuncio:hover {
+  background-color: var(--papaya-primary-hover, #e76f51);
+  transform: translateY(-1px);
 }

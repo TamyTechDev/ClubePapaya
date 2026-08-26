@@ -13,12 +13,12 @@
   background: linear-gradient(135deg, #fff5eb 0%, #fefae0 100%);
   padding: 2.5rem 1.5rem;
   border-radius: 24px;
-  border: 1px solid #f4a261;
+  border: 1px solid var(--papaya-primary, #f4a261);
   margin-bottom: 2.5rem;
 }
 
 .hero-badge {
-  background-color: #e76f51;
+  background-color: var(--papaya-primary, #f4a261);
   color: #fff;
   padding: 0.3rem 0.8rem;
   border-radius: 20px;
@@ -42,7 +42,7 @@
   line-height: 1.5;
 }
 
-/* Subscribe Form */
+/* Form de Inscrição */
 .subscribe-box {
   max-width: 500px;
   margin: 0 auto;
@@ -57,36 +57,38 @@
   flex: 1;
   padding: 0.8rem 1rem;
   border: 1px solid #e2e8f0;
-  border-radius: 12px;
+  border-radius: var(--papaya-radius, 12px);
   font-size: 0.95rem;
   outline: none;
 }
 
 .subscribe-form input:focus {
-  border-color: #e76f51;
+  border-color: var(--papaya-primary, #f4a261);
 }
 
+/* BOTÃO DE INSCRIÇÃO (Padronizado no estilo do botão Sair) */
 .subscribe-form button {
-  background-color: #e76f51;
-  color: #fff;
+  background-color: var(--papaya-primary, #f4a261);
+  color: #ffffff;
   border: none;
   padding: 0.8rem 1.4rem;
-  border-radius: 12px;
+  border-radius: var(--papaya-radius, 12px);
   font-weight: 600;
   cursor: pointer;
-  transition: opacity 0.2s;
   white-space: nowrap;
+  transition: background-color 0.2s ease, transform 0.1s ease;
 }
 
 .subscribe-form button:hover {
-  opacity: 0.9;
+  background-color: var(--papaya-primary-hover, #e76f51);
+  transform: translateY(-1px);
 }
 
 .subscribe-success {
   background-color: #e6f4ea;
   color: #137333;
   padding: 0.9rem 1.2rem;
-  border-radius: 12px;
+  border-radius: var(--papaya-radius, 12px);
   font-size: 0.95rem;
 }
 
@@ -120,7 +122,7 @@
 
 .badge-categoria {
   background-color: #fceade;
-  color: #e76f51;
+  color: var(--papaya-primary-hover, #e76f51);
   padding: 0.25rem 0.6rem;
   border-radius: 8px;
   font-size: 0.8rem;
@@ -155,13 +157,21 @@
   color: #718096;
 }
 
+/* BOTÃO LER MAIS (Estilo Papaya) */
 .btn-ler-mais {
-  background: none;
+  background-color: var(--papaya-primary, #f4a261);
+  color: #ffffff;
   border: none;
-  color: #e76f51;
+  padding: 0.4rem 1rem;
+  border-radius: var(--papaya-radius, 12px);
   font-weight: 600;
   cursor: pointer;
-  padding: 0.2rem 0.5rem;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.btn-ler-mais:hover {
+  background-color: var(--papaya-primary-hover, #e76f51);
+  transform: translateY(-1px);
 }
 
 .edition-content {
