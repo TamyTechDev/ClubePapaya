@@ -1,0 +1,19 @@
+:root {
+  --papaya-primary: #f4a261;
+  --papaya-primary-hover: #e76f51;
+  --papaya-mint-hover: #ADEBB3;
+  --papaya-radius: 12px;
+}
+.maintenance{
+    color: #ffffff !important;
+  border: none;
+  padding: 0.5rem 1.2rem;
+  border-radius: var(--papaya-radius);
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}

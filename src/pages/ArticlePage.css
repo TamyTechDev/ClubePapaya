@@ -1,0 +1,64 @@
+/* Container Principal da Página */
+.article-page-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px 16px;
+  box-sizing: border-box;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Layout em Grid: Coluna Principal + Sidebar */
+.layout-grid {
+  display: grid;
+  grid-template-columns: 1fr 320px; /* Esquerda flexível | Direita com 320px fixos */
+  gap: 40px;
+  align-items: start;
+  margin-top: 20px;
+}
+
+/* Coluna Esquerda (Conteúdo Principal) */
+.conteudo-principal {
+  min-width: 0; /* Previne estouro de layout em elementos de texto longos/imagens */
+  display: flex;
+  flex-direction: column;
+}
+
+/* Coluna Direita (Sidebar Lateral) */
+.coluna-lateral {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  position: sticky;
+  top: 20px; /* Mantém a sidebar visível ao rolar a página se houver espaço */
+}
+
+/* =============================================
+   RESPONSIVIDADE (Telas Menores / Celulares)
+   ============================================= */
+
+/* Tablets e notebooks pequenos (Abaixo de 992px) */
+@media (max-width: 992px) {
+  .layout-grid {
+    grid-template-columns: 1fr 280px; /* Encurta levemente a sidebar */
+    gap: 24px;
+  }
+}
+
+/* Dispositivos Móveis / Celulares (Abaixo de 768px) */
+@media (max-width: 768px) {
+  .article-page-container {
+    padding: 12px;
+  }
+
+  /* Transforma o grid em uma única coluna vertical */
+  .layout-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .coluna-lateral {
+    position: static; /* Remove o sticky na visualização mobile */
+    order: 2; /* Garante que a sidebar fique sempre abaixo do artigo */
+  }
+}
