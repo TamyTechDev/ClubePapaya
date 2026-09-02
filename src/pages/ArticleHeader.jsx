@@ -1,4 +1,7 @@
-import React from "react";
+import React from 'react';
+import './ArticleHeader.css';
+
+
 export default function ArticleHeader({ categoria, titulo, subtitulo, autor, data, fotoAutor }) {
   return (
     <header className="article-header">

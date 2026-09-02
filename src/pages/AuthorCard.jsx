@@ -1,25 +1,27 @@
-import React from "react";
-export default function AuthorCard({ foto, nome, bio, linkPerfil }) {
-  return (
-    <section className="author-card">
-      <div className="author-avatar-container">
-        <img 
-          src={foto || "https://via.placeholder.com/100"} 
-          alt={`Foto de ${nome}`} 
-          className="author-card-avatar" 
-        />
-      </div>
+import React from 'react';
+import './AuthorCard.css';
 
-      <div className="author-card-content">
-        <h3 className="author-card-name">{nome}</h3>
-        <p className="author-card-bio">{bio}</p>
-        
-        {linkPerfil && (
-          <a href={linkPerfil} className="author-card-button">
-            VER PERFIL
-          </a>
+export default function AuthorCard({ autor }) {
+  // Trata se o autor for apenas uma string (nome) ou um objeto
+  const nomeAutor = typeof autor === 'object' ? autor?.nome : autor;
+  const fotoAutor = typeof autor === 'object' ? autor?.foto : null;
+
+  return (
+    <div className="author-card">
+      <div className="author-avatar-placeholder">
+        {fotoAutor ? (
+          <img src={fotoAutor} alt={nomeAutor || "Autor"} />
+        ) : (
+          <span className="author-initials">
+            {nomeAutor ? nomeAutor.charAt(0) : "A"}
+          </span>
         )}
       </div>
-    </section>
+      <div className="author-info">
+        <h4>{nomeAutor || "Autor Convidado"}</h4>
+        <p>Sua FamilyTech de conteúdo diário.</p>
+        <button className='botao-perfil-autor'>Ver Perfil</button>
+      </div>
+    </div>
   );
 }

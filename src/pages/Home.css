@@ -1,0 +1,138 @@
+/* Layout Principal da Landing Page */
+.landing-page {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #f9f9f9;
+  box-sizing: border-box;
+}
+
+.main-layout {
+  display: flex;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px 16px;
+  gap: 32px;
+}
+
+.main-content {
+  flex: 1;
+  min-width: 0; /* Impede que o conteúdo estoure o flexbox */
+}
+
+.sidebar-container {
+  width: 300px;
+  flex-shrink: 0;
+}
+
+/* Seção Superior - Destaque Principal + Secundários */
+.secao-artigo {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 20px;
+  margin-bottom: 32px;
+}
+
+.artigo-principal {
+  position: relative;
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.artigo-principal img {
+  width: 100%;
+  height: 380px;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.artigo-principal:hover img {
+  transform: scale(1.02);
+}
+
+.artigo-principal h2 {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: 0;
+  padding: 20px;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+  color: #fff;
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+/* Coluna de Artigos Secundários */
+.artigos-secundario {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.artigo-secundario {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: inherit;
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.artigo-secundario img {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+}
+
+.artigo-secundario h4 {
+  padding: 12px;
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.3;
+  color: #333;
+}
+
+/* Seção Hero / Banner Publicitário */
+.hero-section {
+  width: 100%;
+  margin-bottom: 32px;
+}
+
+.banner-wrapper {
+  width: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.banner-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+
+/* Responsividade para telas menores e dispositivos móveis */
+@media (max-width: 992px) {
+  .main-layout {
+    flex-direction: column;
+  }
+
+  .sidebar-container {
+    width: 100%;
+  }
+
+  .secao-artigo {
+    grid-template-columns: 1fr;
+  }
+
+  .artigo-principal img {
+    height: 260px;
+  }
+}

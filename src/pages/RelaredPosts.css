@@ -1,84 +1,54 @@
 .related-posts {
-  margin-top: 40px;
-  padding-top: 24px;
-  border-top: 2px solid #eee;
-  font-family: sans-serif;
+  margin-top: 2rem;
 }
 
-.related-title {
-  font-size: 1.4rem;
-  font-weight: 800;
-  color: #1a1a1a;
-  margin-bottom: 24px;
+.related-posts h3 {
+  font-size: 1.3rem;
+  margin-bottom: 1.2rem;
+  color: var(--text-main);
 }
 
-.related-list {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
+.related-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.2rem;
 }
 
-.related-card {
-  display: flex;
-  gap: 20px;
-  align-items: flex-start;
-}
-
-.related-image-link {
-  flex-shrink: 0;
-  width: 220px;
-  height: 140px;
-  border-radius: 4px;
+/* 7. Reutilizado por ArticleCard.css */
+.article-card {
+  background-color: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
   overflow: hidden;
-}
-
-.related-image-link img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.3s ease;
-}
-
-.related-image-link:hover img {
-  transform: scale(1.03);
-}
-
-.related-content {
   display: flex;
   flex-direction: column;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.related-card-title {
-  font-size: 1.15rem;
-  font-weight: 700;
+.article-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+}
+
+.article-card img {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+}
+
+.article-card-content {
+  padding: 1rem;
+}
+
+.article-card-content h4 {
+  font-size: 0.95rem;
+  margin: 0 0 0.5rem 0;
   line-height: 1.3;
-  margin: 0 0 8px 0;
+  color: #222;
 }
 
-.related-card-title a {
-  color: #111;
-  text-decoration: none;
-}
-
-.related-card-title a:hover {
-  color: #8b3a3a;
-}
-
-.related-card-excerpt {
-  font-size: 0.88rem;
-  color: #666;
-  line-height: 1.4;
+.article-card-content p {
+  font-size: 0.8rem;
+  color: var(--text-muted);
   margin: 0;
-}
-
-/* Ajuste Responsivo para telas pequenas */
-@media (max-width: 600px) {
-  .related-card {
-    flex-direction: column;
-  }
-  
-  .related-image-link {
-    width: 100%;
-    height: 180px;
-  }
 }

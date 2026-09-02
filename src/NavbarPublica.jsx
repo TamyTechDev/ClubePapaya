@@ -12,11 +12,15 @@ export default function NavbarPublica({ onOpenModal }) {
         </Link>
       </div>
 
+      <div className="search-box">
+            <input type="text" placeholder="Pesquisar..." />
+      </div>
+
       <ul className="navbar-links">
-        <li><Link to="/empreendedorismo">Blog</Link></li>
+        <li><Link to="/">Início</Link></li>
         <li><Link to="/timeline">Guia</Link></li>
-        <li><a href="#proposito">Propósito</a></li>
-        <li><a href="#sobre">Sobre</a></li>
+        <li><a href="#sobre">Propósito</a></li>
+        
         <li>
           <button 
             type="button" 
@@ -25,6 +29,7 @@ export default function NavbarPublica({ onOpenModal }) {
           >
             Convidados
           </button>
+          <li><a href="#">Entrar/Cadastre-se</a></li>
         </li>
       </ul>
     </nav>

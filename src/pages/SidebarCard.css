@@ -1,0 +1,32 @@
+.sidebar-card-item {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  text-decoration: none;
+  background-color: #ffffff;
+  border: 1px solid #e8e0d8;
+  border-radius: 12px;
+  padding: 0.8rem;
+  box-sizing: border-box;
+  
+  /* Mantém o card perfeitamente preso ao container */
+  width: 100%;
+  position: static;
+  margin: 0;
+  transform: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.sidebar-card-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.sidebar-card-title {
+  margin: 0;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #333333;
+  line-height: 1.35;
+  text-align: left;
+}

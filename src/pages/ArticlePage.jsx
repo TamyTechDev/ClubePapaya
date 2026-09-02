@@ -1,41 +1,50 @@
 import React from 'react';
-import NavbarArticle from './NavbarArticle'
+import NavbarArticle from './NavbarArticle';
 import ArticleHeader from './ArticleHeader';
 import ArticleBody from './ArticleBody';
 import AuthorCard from './AuthorCard';
 import RelatedPosts from './RelatedPosts';
+import BannerADSCard from './BannerADSCard';
+
 import './ArticlePage.css';
+import SideBar from './Sidebar';
+import SidebarCard from './SidebarCard';
 
+// Importando o JSON de artigos da raiz
+import artigosData from '../../artigos.json';
 
+// Pega o primeiro artigo do JSON como padrão
+const artigoPadrao = artigosData[0];
 
-// Dados de teste caso nenhuma prop seja enviada
-const mockArtigo = {
-  categoria: "Mães",
-  titulo: '5 rituais para relaxar depois de um dia "daqueles"',
-  autor: "Renata Menezes",
-  data: "28/08/2026 - 08:45",
-  conteudo: "<p>Tem dia que parece que tudo acontece ao mesmo tempo...</p>"
-};
-
-export default function ArticlePage({ artigoData = mockArtigo }) {
+export default function ArticlePage({ artigoData = artigoPadrao }) {
   return (
-    <div>
+    <div className="justify-content-center">
       <NavbarArticle />
       
       <div className="layout-grid">
-        <main className="conteudo-principal">
-          <ArticleHeader 
-            categoria={artigoData?.categoria}
-            titulo={artigoData?.titulo}
-            autor={artigoData?.autor} 
-            data={artigoData?.data} 
-          />
-          <ArticleBody conteudo={artigoData?.conteudo} />
-          <AuthorCard autor={artigoData?.autor} />
-          <RelatedPosts />
-        </main>
-
+        {/* Banner Superior */}
+        <BannerADSCard />
         
+        {/* Wrapper flex para matéria e sidebar ficarem lado a lado */}
+        <div className="conteudo-com-sidebar">
+          <main className="conteudo-principal">
+            <ArticleHeader 
+              categoria={artigoData?.categoria}
+              titulo={artigoData?.titulo}
+              autor={artigoData?.autor} 
+              data={artigoData?.data} 
+            />
+            <ArticleBody conteudo={artigoData?.conteudo} />
+            <AuthorCard autor={artigoData?.autor} />
+            <RelatedPosts />
+          </main>
+
+          {/* Sidebar posicionado ao lado do artigo */}
+          <SideBar artigos={artigosData} />
+        </div>
+
+        {/* Banner Inferior */}
+        <BannerADSCard />
       </div>
     </div>
   );

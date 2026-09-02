@@ -1,69 +1,38 @@
 import React from 'react';
+import './NavbarArticle.css';
 
-export default function Header() {
+export default function NavbarArticle() {
   return (
-    <header className="site-header">
-      {/* 1. Faixa Superior (Redes Sociais + Links Institucionais) */}
-      <div className="top-bar">
-        <div className="container top-bar-content">
-          <div className="social-links">
-            <a href="#facebook" aria-label="Facebook">F</a>
-            <a href="#twitter" aria-label="Twitter">X</a>
-            <a href="#instagram" aria-label="Instagram">IG</a>
-            <a href="#youtube" aria-label="YouTube">YT</a>
-            <a href="#pinterest" aria-label="Pinterest">P</a>
-            <a href="#linkedin" aria-label="LinkedIn">IN</a>
-            <a href="#tiktok" aria-label="TikTok">TK</a>
-          </div>
+    <header className="navbar-article">
+      {/* Links do Topo */}
+      <nav className="nav-top">
+        <ul className="nav-top-links">
+          <li><a href="#">Quem Somos</a></li>
+          <li><a href="#">Artigos</a></li>
+          <li><a href="#">Newsletter</a></li>
+          <li><a href="#">Contato</a></li>
+          <li><a href="#">Política de Privacidade</a></li>
+        </ul>
+      </nav>
 
-          <nav className="top-nav">
-            <a href="#quem-somos">QUEM SOMOS</a>
-            <a href="#artigos">ARTIGOS</a>
-            <a href="#newsletter">NEWSLETTER</a>
-            <a href="#contato">CONTATO</a>
-            <a href="#politica">POLÍTICA DE PRIVACIDADE</a>
-            <a href="#google-news" className="btn-google-news">SIGA-NOS NO GOOGLE NEWS</a>
-          </nav>
+      {/* Logo e Busca */}
+      <div className="nav-center">
+        <h1 className="logo-text">Clube Papaya</h1>
+        <div className="search-box">
+          <input type="text" placeholder="Pesquisar..." />
         </div>
       </div>
 
-      {/* 2. Área Central (Logo + Busca + Login) */}
-      <div className="main-header">
-        <div className="container main-header-content">
-          <div className="logo">
-            <a href="/">
-              <img 
-                src="URL_DA_SUA_LOGO_NO_CLOUDINARY" 
-                alt="Clube Papaya" 
-              />
-            </a>
-          </div>
-
-          <div className="search-bar">
-            <input type="text" placeholder="Pesquisar..." />
-            <button type="button">🔍</button>
-          </div>
-
-          <div className="user-actions">
-            <a href="#login" className="login-link">ENTRAR / CADASTRE-SE</a>
-          </div>
-        </div>
-      </div>
-
-      {/* 3. Barra de Categorias */}
-      <nav className="categories-bar">
-        <div className="container categories-content">
-          <a href="#caru" className="highlight">CARU</a>
-          <a href="#gravidez">GRAVIDEZ & PARTO</a>
-          <a href="#maes">MÃES</a>
-          <a href="#bebes">BEBÊS</a>
-          <a href="#criancas">CRIANÇAS</a>
-          <a href="#adolescentes">ADOLESCENTES</a>
-          <a href="#viver-bem">VIVER BEM</a>
-          <a href="#guia-de-compras">GUIA DE COMPRAS</a>
-          <a href="#educacao">EDUCAÇÃO</a>
-          <a href="#colunistas">COLUNISTAS</a>
-        </div>
+      {/* Categorias Principais */}
+      <nav className="nav-categories-container">
+        <ul className="nav-categories">
+          <li><a href="#">Gravidez & Parto</a></li>
+          <li><a href="#">Mães</a></li>
+          <li><a href="#">Bebês</a></li>
+          <li><a href="#">Crianças</a></li>
+          <li><a href="#">Adolescentes</a></li>
+          <li><a href="#">Viver Bem</a></li>
+        </ul>
       </nav>
     </header>
   );

@@ -1,4 +1,6 @@
-import React from "react";
+import React from 'react';
+import './RelaredPosts.css'; // Mantenha com 'r' ou renomeie o arquivo na pasta para RelatedPosts.css
+
 
 export default function RelatedPosts({ posts = [] }) {
   return (

@@ -1,4 +1,5 @@
-import React from "react";
+import React from 'react';
+import './ArticleBody.css';
 
 export default function ArticleBody({ imagemDestaque, altImagem, conteudo }) {
   return (
