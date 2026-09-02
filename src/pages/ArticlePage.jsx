@@ -58,12 +58,13 @@ export default function ArticlePage() {
         {/* Wrapper flex para matéria e sidebar ficarem lado a lado */}
         <div className="conteudo-com-sidebar">
           <main className="conteudo-principal">
-            <ArticleHeader 
-              categoria={artigoData?.categoria}
-              titulo={artigoData?.titulo}
-              autor={artigoData?.autor} 
-              data={artigoData?.created_at} 
-            />
+            {/* Formatação segura da data */}
+              <ArticleHeader 
+                categoria={artigoData?.categoria}
+                titulo={artigoData?.titulo}
+                autor={artigoData?.autor} 
+                data={artigoData?.created_at ? new Date(artigoData.created_at).toLocaleDateString('pt-BR') : ''} 
+              />
             <ArticleBody conteudo={artigoData?.conteudo} />
             <AuthorCard autor={artigoData?.autor} />
             <RelatedPosts />

@@ -1,3 +1,7 @@
+/* ==========================================
+   ARTICLE PAGE & LAYOUT STYLES
+   ========================================== */
+
 :root {
   --papaya-primary: #f4a261;
   --papaya-primary-hover: #e76f51;
@@ -19,24 +23,26 @@ body {
 /* Container principal (Banners + Conteúdo com Sidebar) */
 .layout-grid {
   width: 92%;
-  max-width: 1020px; /* Aumentado para acomodar o artigo + a sidebar */
+  max-width: 1020px;
   margin: 2rem auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 2rem;
+  box-sizing: border-box;
 }
 
 /* Alinha Artigo (esquerda) e Sidebar (direita) lado a lado */
 .conteudo-com-sidebar {
   display: flex;
   flex-direction: row;
-  align-items: flex-start; /* OBRIGATÓRIO: permite que a sidebar tenha sua altura própria e fique sticky */
+  align-items: flex-start;
   gap: 2rem;
   width: 100%;
+  box-sizing: border-box;
 }
 
-/* O artigo expande para ocupar o espaço restante */
+/* O artigo expande para ocupar o espaço restante sem vazar */
 .conteudo-principal {
   flex: 1;
   background-color: var(--color-card);
@@ -47,7 +53,8 @@ body {
   box-sizing: border-box;
   min-width: 0;
   max-width: 750px;
-  margin: center;
+  margin: 0 auto;
+  text-align: left;
 }
 
 /* Em telas de celular/tablet, a sidebar vai para baixo do artigo */
@@ -61,4 +68,108 @@ body {
   .conteudo-principal {
     padding: 1.2rem;
   }
+}
+
+/* ==========================================
+   ARTICLE HEADER STYLES
+   ========================================== */
+
+.article-header {
+  text-align: left !important;
+  width: 100%;
+  margin-bottom: 2rem;
+}
+
+.article-title,
+.conteudo-principal h1 {
+  text-align: left !important;
+  width: 100%;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1a202c;
+  line-height: 1.25;
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.article-category {
+  display: inline-block;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #ff7043;
+  background-color: #fff5f0;
+  padding: 4px 8px;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+}
+
+.article-meta {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  text-align: left !important;
+}
+
+/* ==========================================
+   ARTICLE BODY & CONTENT STYLES
+   ========================================== */
+
+.article-body,
+.article-content {
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: var(--text-main);
+  text-align: left !important;
+  overflow-wrap: break-word;
+  word-break: normal;
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: 2rem;
+  margin-bottom: 2rem;
+}
+
+/* Força absoluta de alinhamento à esquerda para qualquer tag gerada pelo editor rico */
+.article-body *,
+.article-content * {
+  text-align: left !important;
+  direction: ltr !important;
+}
+
+/* Parágrafos alinhados à esquerda e sem quebras forçadas */
+.article-body p,
+.article-content p,
+.conteudo-principal p {
+  text-align: left !important;
+  margin-bottom: 1.25rem;
+  max-width: 100% !important;
+  hyphens: none;
+}
+
+/* Títulos internos do artigo alinhados à esquerda */
+.article-body h2, 
+.article-body h3, 
+.article-body h4,
+.article-content h2, 
+.article-content h3, 
+.article-content h4,
+.conteudo-principal h2,
+.conteudo-principal h3,
+.conteudo-principal h4 {
+  text-align: left !important;
+  color: #1a202c;
+  margin-top: 2rem;
+  margin-bottom: 0.8rem;
+  line-height: 1.3;
+}
+
+/* Imagens responsivas e centralizadas */
+.article-body img,
+.article-content img {
+  max-width: 100% !important;
+  height: auto;
+  border-radius: 8px;
+  margin: 1.5rem auto !important;
+  display: block !important;
 }

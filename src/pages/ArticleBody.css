@@ -1,29 +1,189 @@
-.article-body {
-  font-size: 1.05rem;
-  line-height: 1.8;
-  color: #333333;
+/* ==========================================
+   ARTICLE STYLES (CLUBE PAPAYA)
+   ========================================== */
+
+:root {
+  --papaya-primary: #f4a261;
+  --papaya-primary-hover: #e76f51;
+  --color-border: #e8e0d8;
+  --color-card: #ffffff;
+  --bg-page: #faf8f5;
+  --text-main: #333333;
+  --text-muted: #777777;
+}
+
+body {
+  background-color: var(--bg-page);
+  color: var(--text-main);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* Container principal (Banners + Conteúdo com Sidebar) */
+.layout-grid {
+  width: 92%;
+  max-width: 1200px;
+  margin: 2rem auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  box-sizing: border-box;
+}
+
+/* Alinha Artigo (esquerda) e Sidebar (direita) lado a lado */
+.conteudo-com-sidebar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 2rem;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+/* O artigo ocupa o espaço flexível exato, contido na caixa branca */
+.conteudo-principal {
+  flex: 1;
+  width: 0;
+  min-width: 0;
+  background-color: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  padding: 2.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+  box-sizing: border-box;
+  text-align: left;
+}
+
+/* Garante que a sidebar tenha largura fixa e não esmague o artigo */
+.sidebar-container, 
+aside {
+  width: 320px;
+  flex-shrink: 0;
+  box-sizing: border-box;
+}
+
+/* Responsividade para telas menores e celulares */
+@media (max-width: 900px) {
+  .conteudo-com-sidebar {
+    flex-direction: column;
+  }
+  
+  .sidebar-container, 
+  aside {
+    width: 100%;
+  }
+
+  .conteudo-principal {
+    width: 100%;
+    padding: 1.5rem;
+  }
+}
+
+/* ==========================================
+   ARTICLE HEADER STYLES
+   ========================================== */
+
+.article-header {
+  text-align: left !important;
+  width: 100%;
+  margin-bottom: 2rem;
+}
+
+.article-title,
+.conteudo-principal h1 {
+  text-align: left !important;
+  width: 100%;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1a202c;
+  line-height: 1.25;
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.article-category {
+  display: inline-block;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #ff7043;
+  background-color: #fff5f0;
+  padding: 4px 8px;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+}
+
+.article-meta {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  text-align: left !important;
+}
+
+/* ==========================================
+   ARTICLE BODY & CONTENT STYLES
+   ========================================== */
+
+.article-body,
+.article-content {
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  font-size: 1rem;            /* Tamanho padrão exato de portais de notícias (16px) */
+  line-height: 1.6;           /* Espaçamento confortável entre linhas */
+  color: #2c3e50;
+  text-align: left !important;
+  overflow-wrap: break-word;
+  word-break: normal;
   border-bottom: 1px solid var(--color-border);
   padding-bottom: 2rem;
   margin-bottom: 2rem;
 }
 
-.article-body p {
-  margin-bottom: 1.5rem;
+/* Força absoluta de alinhamento à esquerda para qualquer tag gerada pelo editor rico */
+.article-body *,
+.article-content * {
+  text-align: left !important;
+  direction: ltr !important;
 }
 
+/* Parágrafos alinhados à esquerda e sem quebras forçadas */
+.article-body p,
+.article-content p,
+.conteudo-principal p {
+  text-align: left !important;
+  margin-bottom: 1.25rem;
+  max-width: 100% !important;
+  hyphens: none;
+}
+
+/* Títulos internos do artigo alinhados à esquerda */
 .article-body h2, 
-.article-body h3 {
-  color: #222;
+.article-body h3, 
+.article-body h4,
+.article-content h2, 
+.article-content h3, 
+.article-content h4,
+.conteudo-principal h2,
+.conteudo-principal h3,
+.conteudo-principal h4 {
+  text-align: left !important;
+  color: #1a202c;
   margin-top: 2rem;
-  margin-bottom: 1rem;
+  margin-bottom: 0.8rem;
   line-height: 1.3;
 }
 
-.article-body img {
-  max-width: 100%;
+/* Imagens responsivas e centralizadas */
+.article-body img,
+.article-content img {
+  max-width: 100% !important;
   height: auto;
-  border-radius: 12px;
-  margin: 1.5rem 0;
-  justify-content: center;
-  align-items: center;
+  border-radius: 8px;
+  margin: 1.5rem auto !important;
+  display: block !important;
 }
