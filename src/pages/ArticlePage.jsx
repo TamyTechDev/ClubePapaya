@@ -1,22 +1,52 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { supabase } from '../supabaseClient';
+
 import NavbarArticle from './NavbarArticle';
 import ArticleHeader from './ArticleHeader';
 import ArticleBody from './ArticleBody';
 import AuthorCard from './AuthorCard';
 import RelatedPosts from './RelatedPosts';
 import BannerADSCard from './BannerADSCard';
+import SideBar from './Sidebar';
 
 import './ArticlePage.css';
-import SideBar from './Sidebar';
-import SidebarCard from './SidebarCard';
 
-// Importando o JSON de artigos da raiz
-import artigosData from '../../artigos.json';
+export default function ArticlePage() {
+  const { id } = useParams(); // Pega o ID passado na URL (ex: /artigo/5)
+  const [artigoData, setArtigoData] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-// Pega o primeiro artigo do JSON como padrão
-const artigoPadrao = artigosData[0];
+  useEffect(() => {
+    async function buscarArtigoDoSupabase() {
+      if (!id) return;
 
-export default function ArticlePage({ artigoData = artigoPadrao }) {
+      setLoading(true);
+      const { data, error } = await supabase
+        .from('artigos')
+        .select('*')
+        .eq('id', id)
+        .single(); // Pega exatamente o registro correspondente ao ID
+
+      if (error) {
+        console.error('Erro ao carregar o artigo do Supabase:', error.message);
+      } else {
+        setArtigoData(data);
+      }
+      setLoading(false);
+    }
+
+    buscarArtigoDoSupabase();
+  }, [id]);
+
+  if (loading) {
+    return <div style={{ textAlign: 'center', padding: '50px' }}>Carregando matéria...</div>;
+  }
+
+  if (!artigoData) {
+    return <div style={{ textAlign: 'center', padding: '50px' }}>Artigo não encontrado.</div>;
+  }
+
   return (
     <div className="justify-content-center">
       <NavbarArticle />
@@ -32,15 +62,15 @@ export default function ArticlePage({ artigoData = artigoPadrao }) {
               categoria={artigoData?.categoria}
               titulo={artigoData?.titulo}
               autor={artigoData?.autor} 
-              data={artigoData?.data} 
+              data={artigoData?.created_at} 
             />
             <ArticleBody conteudo={artigoData?.conteudo} />
             <AuthorCard autor={artigoData?.autor} />
             <RelatedPosts />
           </main>
 
-          {/* Sidebar posicionado ao lado do artigo */}
-          <SideBar artigos={artigosData} />
+          {/* Sidebar */}
+          <SideBar />
         </div>
 
         {/* Banner Inferior */}
