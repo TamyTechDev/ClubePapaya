@@ -1,26 +1,26 @@
 .navbar-article {
   background-color: #ffffff;
   border-bottom: 1px solid #e8e0d8;
-  padding: 1rem 0;
-  margin-bottom: 2rem;
+  padding: 0.5rem 0;
+  
 }
 
 .navbar-article ul {
   display: flex !important;
   flex-wrap: wrap !important;
   justify-content: center !important;
-  gap: 1.2rem !important;
+  gap: 1.5rem !important;
   list-style: none !important;
   padding: 0 !important;
-  margin: 0.5rem 0 !important;
+  margin:  0 !important;
 }
 
 .navbar-article a {
   text-decoration: none !important;
-  color: #555555 !important;
+  color: #555555 ;
   font-size: 0.85rem !important;
   font-weight: 600 !important;
-  transition: color 0.2s ease;
+ 
 }
 
 .navbar-article a:hover {
@@ -31,51 +31,14 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.5rem;
-  margin: 1rem 0;
+}
+.contato{
+  align-items: flex-end;
+}
+.button-newsletter{
+ color: #f4a261 !important;
 }
 
-.logo-text {
-  color: #f4a261;
-  font-size: 1.8rem;
-  margin: 0;
-}
 
-/* Container da busca */
-.search-box {
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  position: relative;
-  margin-top: 0.5rem;
-}
 
-/* O campo de texto */
-.search-box input {
-  width: 260px;
-  padding: 0.5rem 1rem 0.5rem 2.2rem; /* Espaço para o ícone na esquerda */
-  border: 1px solid #e8e0d8;
-  border-radius: 20px;
-  background-color: #faf8f5;
-  font-size: 0.85rem;
-  color: #333;
-  outline: none;
-  transition: all 0.2s ease;
-}
 
-/* Efeito ao clicar para digitar */
-.search-box input:focus {
-  border-color: #f4a261;
-  background-color: #ffffff;
-  box-shadow: 0 0 0 3px rgba(244, 162, 97, 0.15);
-}
-
-/* Lupa discreta antes do texto */
-.search-box::before {
-  content: "🔍";
-  position: absolute;
-  left: 10px;
-  font-size: 0.75rem;
-  opacity: 0.5;
-  pointer-events: none;
-}

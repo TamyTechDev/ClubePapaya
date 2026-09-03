@@ -11,6 +11,7 @@ import BannerADSCard from './BannerADSCard';
 import SideBar from './Sidebar';
 
 import './ArticlePage.css';
+import NavbarPublica from '../NavbarPublica';
 
 export default function ArticlePage() {
   const { id } = useParams(); // Pega o ID passado na URL (ex: /artigo/5)
@@ -49,6 +50,7 @@ export default function ArticlePage() {
 
   return (
     <div className="justify-content-center">
+      <NavbarPublica/>
       <NavbarArticle />
       
       <div className="layout-grid">

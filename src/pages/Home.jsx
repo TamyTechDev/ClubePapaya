@@ -11,6 +11,7 @@ import Bannerhome from '../images/Banner home.png';
 import Sidebar from './Sidebar';
 import GridTresCard from './GridTresCard';
 import './Home.css';
+import NavbarArticle from './NavbarArticle';
 function Home() {
   const [listaArtigos, setListaArtigos] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -44,6 +45,7 @@ function Home() {
   return (
     <div className="landing-page">
       <NavbarPublica />
+      <NavbarArticle />
 
       <div className="main-layout">
         <main className="main-content">
