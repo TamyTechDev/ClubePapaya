@@ -16,7 +16,7 @@ function App() {
       <Route path="/artigo/:id" element={<ArticlePage />} />
       <Route path="/sobre" element={<Sobre />} />
       <Route path="/convidados" element={<Convidados />} />
-      <Route path="/guia" element={<TimeLine />} />
+      <Route path="/timeline" element={<TimeLine />} />
       
       {/* Rota dinâmica para as categorias da Navbar */}
       <Route path="/categoria/:nome" element={<CategoriaPage />} />
