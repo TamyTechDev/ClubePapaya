@@ -17,6 +17,7 @@ function App() {
       <Route path="/sobre" element={<Sobre />} />
       <Route path="/convidados" element={<Convidados />} />
       <Route path="/timeline" element={<TimeLine />} />
+       <Route path="/guia" element={<TimeLine />} />
       
       {/* Rota dinâmica para as categorias da Navbar */}
       <Route path="/categoria/:nome" element={<CategoriaPage />} />
