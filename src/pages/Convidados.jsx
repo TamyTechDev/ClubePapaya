@@ -1,39 +1,83 @@
+import React from "react";
 import NavbarPublica from "../NavbarPublica";
 import NavbarArticle from "./NavbarArticle";
-import PageBody from "./PageBody";
-import BannerADSCard from "./BannerADSCard"
+import BannerADSCard from "./BannerADSCard";
+import RelatedPosts from "./RelatedPosts";
+import SideBar from "./Sidebar";
+import Footer from "../Footer";
+import ConvidadosCard from "./ConvidadosCard";
 
-import RelatedPosts from "./RelatedPosts"
-import SideBar from "./Sidebar"
-import Footer from "../Footer"
+function Convidados() {
+    // Lista completa de convidados com suas respectivas descrições
+    const listaConvidados = [
 
-function Convidados (){
+      { 
+       id: 1, 
+       nome: "Luísa Henriqueta", 
+       foto: "https://res.cloudinary.com/dpynm0sf/image/upload/v1788632533/Captura_de_tela_2026-09-05_152146.png", 
+       bio: " Mãe de 3 | Autora de Lampada do sono | Neurodesign do Sono" 
+            
+      },
+      { 
+        id: 2, 
+        nome: "Jane Tinen", 
+        foto: "https://res.cloudinary.com/dpynm0sf/image/upload/v1788632315/Foto_JAne.png", 
+        bio: "Mãe de 3 | Empreendedora | Direito Empresarial & Neurociência" 
+      },
+      { 
+        id: 3, 
+        nome: "Clediane Lemos", 
+        foto: "https://res.cloudinary.com/dpynm0sf/image/upload/v1788632393/benji.png", 
+        bio: "Mãe de 1 | Empreendedora da Benji Cakes | Psicológa." 
+      },
+      
+
+      { 
+        id: 4, 
+        nome: "Patricia Temponi Lopes", 
+        foto: "https://res.cloudinary.com/dpynm0sf/image/upload/v1788630756/WhatsApp_Image_2026-09-01_at_15.29.11.jpg", 
+        bio: "Mãe de 2 | Empreendedora da Terrarimns Quero Mais Verde | Corretora de imóveis" 
+      },
+       { 
+        id: 5, 
+        nome: "Simone Batista", 
+        foto: "", 
+        bio: " Mãe de 2 | Empreendedora e Artesã no Estrelas da Si ." 
+      },     
+    ];
+
     return (
-<>
-<div className="navbar-publica">
-    <NavbarPublica/>
-    <NavbarArticle/>
-      <div className="layout-grid">
-            <BannerADSCard />
-            <div className="conteudo-com-sidebar">
-              <main className="conteudo-principal">
-                {/* Formatação do corpo da pagina convidados */}
+        <>
+            <NavbarPublica />
+            <NavbarArticle />
+            
+            <div className="layout-grid" style={{ padding: '2rem 1rem', maxWidth: '1200px', margin: '0 auto' }}>
+                <BannerADSCard />
                 
-                <PageBody/>
-                <h1>TESTE CONVIDADOS</h1>
-                <RelatedPosts />
-              </main>
-    
-              {/* Sidebar */}
-              <SideBar />
+                <div className="conteudo-com-sidebar" style={{ display: 'flex', gap: '2rem', marginTop: '1.5rem' }}>
+                    <main className="conteudo-principal" style={{ flex: 1 }}>
+
+                      <h1> Conheça nossas colunistas convidadas</h1>
+                        
+                        {/* Renderiza todos os cards iterando pela lista */}
+                        {listaConvidados.map((autor) => (
+                            <ConvidadosCard key={autor.id} autor={autor} />
+                        ))}
+
+                        <RelatedPosts />
+                    </main>
+
+                    {/* Sidebar */}
+                    <SideBar />
+                </div>
+
+                {/* Banner Inferior */}
+                <BannerADSCard />
             </div>
-    
-            {/* Banner Inferior */}
-            <BannerADSCard />
-          </div>
-</div>
-<Footer/>
-</>
-    )
+
+            <Footer />
+        </>
+    );
 }
-export default Convidados
+
+export default Convidados;

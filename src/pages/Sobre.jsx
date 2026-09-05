@@ -20,7 +20,7 @@ function Sobre(){
                     <div className="conteudo-com-sidebar">
                       <main className="conteudo-principal">
                         <PageBody/>   
-                        <h1>TESTE SOBRE</h1>                   
+                                        
                         <RelatedPosts />
                       </main>
             
