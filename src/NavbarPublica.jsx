@@ -16,12 +16,12 @@ export default function NavbarPublica({ onOpenModal }) {
         <input type="text" placeholder="Pesquisar..." />
       </div>
 
-      <ul className="navbar-links">
-        <li><Link to="/">Início</Link></li>
-        <li><Link to="/timeline">Guia</Link></li>
-        <li><Link to="/sobre">Propósito</Link></li>
-        <li><Link to="/convidados">Convidados</Link></li>
-      </ul>
+        <ul className="navbar-links">
+          <li><Link to="/">Início</Link></li>
+          <li><Link to="/guia">Guia</Link></li>
+          <li><Link to="/sobre">Propósito</Link></li>
+          <li><Link to="/convidados">Convidados</Link></li>
+        </ul>
     </nav>
   );
 }

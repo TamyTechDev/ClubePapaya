@@ -1,5 +1,9 @@
 import React, { useState, useRef } from 'react';
-import Navbar from '../Navbar';
+import NavbarPublica from '../NavbarPublica';
+import Sidebar from './Sidebar';
+import './TimeLine.css';
+import BannerADSCard from './BannerADSCard';
+import Footer from '../Footer';
 
 // Dados completos das 13 fases de desenvolvimento
 const FASES = [
@@ -324,7 +328,6 @@ export default function TimeLine() {
 
   const fase = FASES[faseAtiva];
 
-  // Função para navegar pela linha do tempo
   const handleSelectFase = (index) => {
     setFaseAtiva(index);
   };
@@ -338,509 +341,205 @@ export default function TimeLine() {
   };
 
   return (
-    <div style={styles.container}>
-      <Navbar />
-      {/* ESTILOS CSS INJETADOS PARA ANIMAÇÕES E SCROLLBAR */}
-      <style>{`
-        .timeline-scroll::-webkit-scrollbar {
-          height: 6px;
-        }
-        .timeline-scroll::-webkit-scrollbar-track {
-          background: #f1f5f9;
-          border-radius: 10px;
-        }
-        .timeline-scroll::-webkit-scrollbar-thumb {
-          background: #f4a261;
-          border-radius: 10px;
-        }
-        .timeline-node {
-          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .timeline-node:hover {
-          transform: translateY(-4px);
-        }
-        .tab-btn {
-          transition: all 0.2s ease;
-        }
-        .tab-btn:hover {
-          background-color: #fceade !important;
-        }
-      `}</style>
+    <>
+      <NavbarPublica />
+      <BannerADSCard/>
+      <div className="timeline-layout">
+        
+        <Sidebar />
 
-      {/* HEADER DA PÁGINA */}
-      <div style={styles.header}>
-        <h1 style={styles.tituloPagina}>Linha do tempo do bebê</h1>
-        <></>
-        <p style={styles.subtituloPagina}>
-          Acompanhe cada salto de desenvolvimento, marcos motores, alimentação e dicas de estímulos mês a mês.
-        </p>
-      </div>
-
-      {/* LINHA DO TEMPO INTERATIVA NO TOPO */}
-      <div style={styles.timelineWrapper}>
-        <button 
-          onClick={handlePrev} 
-          disabled={faseAtiva === 0}
-          style={{ ...styles.navButton, opacity: faseAtiva === 0 ? 0.4 : 1 }}
-        >
-          ❮
-        </button>
-
-        <div className="timeline-scroll" ref={scrollRef} style={styles.timelineScroll}>
-          {/* Linha conectora de fundo */}
-          <div style={styles.lineBackground} />
-
-          {FASES.map((f, idx) => {
-            const isSelected = idx === faseAtiva;
-            return (
-              <div 
-                key={f.id} 
-                onClick={() => handleSelectFase(idx)}
-                className="timeline-node"
-                style={{
-                  ...styles.nodeContainer,
-                  cursor: 'pointer',
-                }}
-              >
-                {/* Círculo do marco */}
-                <div style={{
-                  ...styles.nodeCircle,
-                  backgroundColor: isSelected ? '#e76f51' : '#fff',
-                  borderColor: isSelected ? '#e76f51' : '#f4a261',
-                  color: isSelected ? '#fff' : '#2b2d42',
-                  boxShadow: isSelected ? '0 6px 16px rgba(231, 111, 81, 0.4)' : '0 2px 8px rgba(0,0,0,0.06)'
-                }}>
-                  <span style={{ fontSize: isSelected ? '1.4rem' : '1.1rem' }}>{f.icone}</span>
-                </div>
-
-                {/* Rótulo */}
-                <span style={{
-                  ...styles.nodeLabel,
-                  fontWeight: isSelected ? '700' : '500',
-                  color: isSelected ? '#e76f51' : '#6c757d',
-                }}>
-                  {f.rotulo}
-                </span>
-              </div>
-            );
-          })}
-        </div>
-
-        <button 
-          onClick={handleNext} 
-          disabled={faseAtiva === FASES.length - 1}
-          style={{ ...styles.navButton, opacity: faseAtiva === FASES.length - 1 ? 0.4 : 1 }}
-        >
-          ❯
-        </button>
-      </div>
-
-      {/* COMPONENTE EXPLICATIVO: GUIA DA FASE (PAINEL DINÂMICO) */}
-      <div style={styles.painelCard}>
-        {/* CABEÇALHO DO PAINEL */}
-        <div style={styles.painelHeader}>
-          <div style={styles.painelBadge}>
-            <span style={{ fontSize: '2rem' }}>{fase.icone}</span>
-            <div>
-              <h2 style={styles.faseTitulo}>{fase.subtitulo}</h2>
-              <span style={styles.faseTag}>Fase {faseAtiva + 1} de {FASES.length}</span>
-            </div>
+        <div className="timeline-main-content">
+          {/* HEADER DA PÁGINA */}
+          <div className="header">
+            <h1 className="titulo-pagina">Guia de desenvolvimento do bebê</h1>
+            <p className="subtitulo-pagina">
+              Acompanhe cada salto de desenvolvimento, marcos motores, alimentação e dicas de estímulos mês a mês com a nossa linha do tempo
+            </p>
           </div>
 
-          <p style={styles.faseResumo}>{fase.resumo}</p>
-        </div>
+          {/* LINHA DO TEMPO INTERATIVA NO TOPO */}
+          <div className="timeline-wrapper">
+            <button 
+              onClick={handlePrev} 
+              disabled={faseAtiva === 0}
+              className="nav-button"
+              style={{ opacity: faseAtiva === 0 ? 0.4 : 1 }}
+            >
+              ❮
+            </button>
 
-        {/* NAVEGAÇÃO POR ABAS INTERNAS */}
-        <div style={styles.tabsContainer}>
-          <button 
-            className="tab-btn"
-            onClick={() => setAbaAtiva('visaoGeral')}
-            style={{
-              ...styles.tabButton,
-              borderBottom: abaAtiva === 'visaoGeral' ? '3px solid #e76f51' : '3px solid transparent',
-              color: abaAtiva === 'visaoGeral' ? '#e76f51' : '#6c757d',
-              fontWeight: abaAtiva === 'visaoGeral' ? '700' : '500',
-            }}
-          >
-            ✨ Marcos & Saltos
-          </button>
+            <div className="timeline-scroll" ref={scrollRef}>
+              <div className="line-background" />
 
-          <button 
-            className="tab-btn"
-            onClick={() => setAbaAtiva('rotina')}
-            style={{
-              ...styles.tabButton,
-              borderBottom: abaAtiva === 'rotina' ? '3px solid #e76f51' : '3px solid transparent',
-              color: abaAtiva === 'rotina' ? '#e76f51' : '#6c757d',
-              fontWeight: abaAtiva === 'rotina' ? '700' : '500',
-            }}
-          >
-            🍼 Sono & Alimentação
-          </button>
+              {FASES.map((f, idx) => {
+                const isSelected = idx === faseAtiva;
+                return (
+                  <div 
+                    key={f.id} 
+                    onClick={() => handleSelectFase(idx)}
+                    className="timeline-node node-container"
+                    style={{ cursor: 'pointer' }}
+                  >
+                    <div className="node-circle" style={{
+                      backgroundColor: isSelected ? '#e76f51' : '#fff',
+                      borderColor: isSelected ? '#e76f51' : '#f4a261',
+                      color: isSelected ? '#fff' : '#2b2d42',
+                      boxShadow: isSelected ? '0 6px 16px rgba(231, 111, 81, 0.4)' : '0 2px 8px rgba(0,0,0,0.06)'
+                    }}>
+                      <span style={{ fontSize: isSelected ? '1.4rem' : '1.1rem' }}>{f.icone}</span>
+                    </div>
 
-          <button 
-            className="tab-btn"
-            onClick={() => setAbaAtiva('atividades')}
-            style={{
-              ...styles.tabButton,
-              borderBottom: abaAtiva === 'atividades' ? '3px solid #e76f51' : '3px solid transparent',
-              color: abaAtiva === 'atividades' ? '#e76f51' : '#6c757d',
-              fontWeight: abaAtiva === 'atividades' ? '700' : '500',
-            }}
-          >
-            🧩 Estímulos & Brincadeiras
-          </button>
-
-          <button 
-            className="tab-btn"
-            onClick={() => setAbaAtiva('alertas')}
-            style={{
-              ...styles.tabButton,
-              borderBottom: abaAtiva === 'alertas' ? '3px solid #e76f51' : '3px solid transparent',
-              color: abaAtiva === 'alertas' ? '#e76f51' : '#6c757d',
-              fontWeight: abaAtiva === 'alertas' ? '700' : '500',
-            }}
-          >
-            🩺 Sinais de Alerta
-          </button>
-        </div>
-
-        {/* CONTEÚDO DA ABA SELECIONADA */}
-        <div style={styles.abaConteudo}>
-          {abaAtiva === 'visaoGeral' && (
-            <div>
-              {/* Box do Salto de Desenvolvimento */}
-              <div style={styles.saltoBox}>
-                <h3 style={styles.boxTitulo}>🧠 Salto de Desenvolvimento / Salto Mental</h3>
-                <p style={styles.boxTexto}>{fase.saltos}</p>
-              </div>
-
-              {/* Lista de Marcos Esperados */}
-              <h3 style={styles.secaoSubtitulo}>📌 O que o bebê costuma fazer nesta fase:</h3>
-              <ul style={styles.listaMarcos}>
-                {fase.marcos.map((marco, index) => (
-                  <li key={index} style={styles.itemMarco}>
-                    <span style={styles.checkIcon}>✓</span>
-                    <span>{marco}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-
-          {abaAtiva === 'rotina' && (
-            <div style={styles.gridRotina}>
-              <div style={styles.cardRotina}>
-                <h3 style={styles.boxTitulo}>🌙 Sono</h3>
-                <p style={styles.boxTexto}>{fase.sonoAlimentacao.sono}</p>
-              </div>
-
-              <div style={styles.cardRotina}>
-                <h3 style={styles.boxTitulo}>🥣 Alimentação</h3>
-                <p style={styles.boxTexto}>{fase.sonoAlimentacao.alimentacao}</p>
-              </div>
-            </div>
-          )}
-
-          {abaAtiva === 'atividades' && (
-            <div>
-              <h3 style={styles.secaoSubtitulo}>💡 Atividades e Brincadeiras Recomendadas:</h3>
-              <div style={styles.gridAtividades}>
-                {fase.atividades.map((ativ, idx) => (
-                  <div key={idx} style={styles.cardAtividade}>
-                    <span style={styles.numeroAtividade}>{idx + 1}</span>
-                    <p style={styles.textoAtividade}>{ativ}</p>
+                    <span className="node-label" style={{
+                      fontWeight: isSelected ? '700' : '500',
+                      color: isSelected ? '#e76f51' : '#6c757d',
+                    }}>
+                      {f.rotulo}
+                    </span>
                   </div>
-                ))}
-              </div>
+                );
+              })}
             </div>
-          )}
 
-          {abaAtiva === 'alertas' && (
-            <div style={styles.alertaBox}>
-              <h3 style={{ ...styles.boxTitulo, color: '#c1121f' }}>⚠️ Sinais de Atenção (Consulte o Pediatra)</h3>
-              <p style={styles.textoAlerta}>{fase.alertas}</p>
-              <span style={styles.notaRodape}>
-                * Lembre-se: cada bebê tem seu próprio ritmo de desenvolvimento. Esta guia é uma referência informativa e não substitui a consulta médica.
-              </span>
+            <button 
+              onClick={handleNext} 
+              disabled={faseAtiva === FASES.length - 1}
+              className="nav-button"
+              style={{ opacity: faseAtiva === FASES.length - 1 ? 0.4 : 1 }}
+            >
+              ❯
+            </button>
+          </div>
+
+          {/* COMPONENTE EXPLICATIVO: GUIA DA FASE (PAINEL DINÂMICO) */}
+          <div className="painel-card">
+            <div className="painel-header">
+              <div className="painel-badge">
+                <span style={{ fontSize: '2rem' }}>{fase.icone}</span>
+                <div>
+                  <h2 className="fase-titulo">{fase.subtitulo}</h2>
+                  <span className="fase-tag">Fase {faseAtiva + 1} de {FASES.length}</span>
+                </div>
+              </div>
+
+              <p className="fase-resumo">{fase.resumo}</p>
             </div>
-          )}
+
+            {/* NAVEGAÇÃO POR ABAS INTERNAS */}
+            <div className="tabs-container">
+              <button 
+                className="tab-btn tab-button"
+                onClick={() => setAbaAtiva('visaoGeral')}
+                style={{
+                  borderBottom: abaAtiva === 'visaoGeral' ? '3px solid #e76f51' : '3px solid transparent',
+                  color: abaAtiva === 'visaoGeral' ? '#e76f51' : '#6c757d',
+                  fontWeight: abaAtiva === 'visaoGeral' ? '700' : '500',
+                }}
+              >
+                ✨ Marcos & Saltos
+              </button>
+
+              <button 
+                className="tab-btn tab-button"
+                onClick={() => setAbaAtiva('rotina')}
+                style={{
+                  borderBottom: abaAtiva === 'rotina' ? '3px solid #e76f51' : '3px solid transparent',
+                  color: abaAtiva === 'rotina' ? '#e76f51' : '#6c757d',
+                  fontWeight: abaAtiva === 'rotina' ? '700' : '500',
+                }}
+              >
+                🍼 Sono & Alimentação
+              </button>
+
+              <button 
+                className="tab-btn tab-button"
+                onClick={() => setAbaAtiva('atividades')}
+                style={{
+                  borderBottom: abaAtiva === 'atividades' ? '3px solid #e76f51' : '3px solid transparent',
+                  color: abaAtiva === 'atividades' ? '#e76f51' : '#6c757d',
+                  fontWeight: abaAtiva === 'atividades' ? '700' : '500',
+                }}
+              >
+                🧩 Estímulos & Brincadeiras
+              </button>
+
+              <button 
+                className="tab-btn tab-button"
+                onClick={() => setAbaAtiva('alertas')}
+                style={{
+                  borderBottom: abaAtiva === 'alertas' ? '3px solid #e76f51' : '3px solid transparent',
+                  color: abaAtiva === 'alertas' ? '#e76f51' : '#6c757d',
+                  fontWeight: abaAtiva === 'alertas' ? '700' : '500',
+                }}
+              >
+                🩺 Sinais de Alerta
+              </button>
+            </div>
+
+            {/* CONTEÚDO DA ABA SELECIONADA */}
+            <div className="aba-conteudo">
+              {abaAtiva === 'visaoGeral' && (
+                <div>
+                  <div className="salto-box">
+                    <h3 className="box-titulo">🧠 Salto de Desenvolvimento / Salto Mental</h3>
+                    <p className="box-texto">{fase.saltos}</p>
+                  </div>
+
+                  <h3 className="secao-subtitulo">📌 O que o bebê costuma fazer nesta fase:</h3>
+                  <ul className="lista-marcos">
+                    {fase.marcos.map((marco, index) => (
+                      <li key={index} className="item-marco">
+                        <span className="check-icon">✓</span>
+                        <span>{marco}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              {abaAtiva === 'rotina' && (
+                <div className="grid-rotina">
+                  <div className="card-rotina">
+                    <h3 className="box-titulo">🌙 Sono</h3>
+                    <p className="box-texto">{fase.sonoAlimentacao.sono}</p>
+                  </div>
+
+                  <div className="card-rotina">
+                    <h3 className="box-titulo">🥣 Alimentação</h3>
+                    <p className="box-texto">{fase.sonoAlimentacao.alimentacao}</p>
+                  </div>
+                </div>
+              )}
+
+              {abaAtiva === 'atividades' && (
+                <div>
+                  <h3 className="secao-subtitulo">💡 Atividades e Brincadeiras Recomendadas:</h3>
+                  <div className="grid-atividades">
+                    {fase.atividades.map((ativ, idx) => (
+                      <div key={idx} className="card-atividade">
+                        <span className="numero-atividade">{idx + 1}</span>
+                        <p className="texto-atividade">{ativ}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {abaAtiva === 'alertas' && (
+                <div className="alerta-box">
+                  <h3 className={{ ...styles.boxTitulo, color: '#c1121f' }}>⚠️ Sinais de Atenção (Consulte o Pediatra)</h3>
+                  <p className="texto-alerta">{fase.alertas}</p>
+                  <span className="nota-rodape">
+                    * Lembre-se: cada bebê tem seu próprio ritmo de desenvolvimento. Este guia é uma referência informativa e não substitui a consulta médica.
+                  </span>
+                </div>
+              )}
+            </div>
+          </div>
         </div>
+       
       </div>
-    </div>
+       <BannerADSCard/>
+      <Footer/>
+    </>
   );
 }
-
-// ESTILIZAÇÃO COMPLETA DA PÁGINA
-const styles = {
-  container: {
-    width: '100%',
-    maxWidth: '1050px',
-    margin: '0 auto',
-    padding: '1.5rem 1rem',
-    fontFamily: "'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
-    color: '#2b2d42',
-  },
-  header: {
-    textAlign: 'center',
-    marginBottom: '2rem',
-  },
-  tituloPagina: {
-    fontSize: '2.2rem',
-    color: '#2b2d42',
-    marginBottom: '0.5rem',
-    fontWeight: '700',
-  },
-  subtituloPagina: {
-    fontSize: '1.05rem',
-    color: '#6c757d',
-    maxWidth: '650px',
-    margin: '0 auto',
-    lineHeight: '1.5',
-  },
-  
-  // Linha do tempo
-  timelineWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '0.8rem',
-    backgroundColor: '#fff',
-    padding: '1.2rem 1rem',
-    borderRadius: '20px',
-    boxShadow: '0 4px 20px rgba(0,0,0,0.05)',
-    marginBottom: '2rem',
-    position: 'relative',
-  },
-  timelineScroll: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '2.2rem',
-    overflowX: 'auto',
-    padding: '1rem 0.5rem',
-    width: '100%',
-    position: 'relative',
-    scrollBehavior: 'smooth',
-  },
-  lineBackground: {
-    position: 'absolute',
-    top: '38px',
-    left: '20px',
-    right: '20px',
-    height: '4px',
-    backgroundColor: '#fceade',
-    zIndex: 0,
-  },
-  nodeContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    zIndex: 1,
-    minWidth: '70px',
-  },
-  nodeCircle: {
-    width: '52px',
-    height: '52px',
-    borderRadius: '50%',
-    border: '3px solid',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: '0.5rem',
-    transition: 'all 0.3s ease',
-  },
-  nodeLabel: {
-    fontSize: '0.82rem',
-    textAlign: 'center',
-    whiteSpace: 'nowrap',
-  },
-  navButton: {
-    background: '#fefae0',
-    border: '1px solid #f4a261',
-    color: '#e76f51',
-    borderRadius: '50%',
-    width: '38px',
-    height: '38px',
-    fontSize: '1.1rem',
-    cursor: 'pointer',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexShrink: 0,
-  },
-
-  // Painel explicativo
-  painelCard: {
-    backgroundColor: '#fff',
-    borderRadius: '24px',
-    padding: '2.2rem',
-    boxShadow: '0 8px 30px rgba(0, 0, 0, 0.06)',
-    border: '1px solid #fae1dd',
-  },
-  painelHeader: {
-    borderBottom: '1px solid #f8edeb',
-    paddingBottom: '1.5rem',
-    marginBottom: '1.5rem',
-  },
-  painelBadge: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '1rem',
-    marginBottom: '0.8rem',
-  },
-  faseTitulo: {
-    fontSize: '1.8rem',
-    margin: 0,
-    color: '#2b2d42',
-  },
-  faseTag: {
-    fontSize: '0.85rem',
-    backgroundColor: '#fceade',
-    color: '#e76f51',
-    padding: '0.2rem 0.6rem',
-    borderRadius: '12px',
-    fontWeight: '600',
-  },
-  faseResumo: {
-    fontSize: '1.1rem',
-    color: '#4a5568',
-    lineHeight: '1.6',
-    margin: 0,
-  },
-
-  // Abas
-  tabsContainer: {
-    display: 'flex',
-    gap: '1rem',
-    borderBottom: '2px solid #f8edeb',
-    overflowX: 'auto',
-    marginBottom: '1.5rem',
-  },
-  tabButton: {
-    background: 'none',
-    border: 'none',
-    padding: '0.8rem 1rem',
-    fontSize: '0.98rem',
-    cursor: 'pointer',
-    whiteSpace: 'nowrap',
-  },
-  abaConteudo: {
-    minHeight: '220px',
-  },
-
-  // Seções internas
-  saltoBox: {
-    backgroundColor: '#fff5eb',
-    borderLeft: '5px solid #e76f51',
-    borderRadius: '12px',
-    padding: '1.2rem',
-    marginBottom: '1.8rem',
-  },
-  boxTitulo: {
-    fontSize: '1.15rem',
-    margin: '0 0 0.5rem 0',
-    color: '#2b2d42',
-  },
-  boxTexto: {
-    fontSize: '1rem',
-    color: '#4a5568',
-    lineHeight: '1.6',
-    margin: 0,
-  },
-  secaoSubtitulo: {
-    fontSize: '1.2rem',
-    marginBottom: '1rem',
-    color: '#2b2d42',
-  },
-  listaMarcos: {
-    listStyle: 'none',
-    padding: 0,
-    margin: 0,
-    display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-    gap: '1rem',
-  },
-  itemMarco: {
-    display: 'flex',
-    alignItems: 'flex-start',
-    gap: '0.7rem',
-    backgroundColor: '#f8f9fa',
-    padding: '0.9rem 1.1rem',
-    borderRadius: '12px',
-    fontSize: '0.98rem',
-    color: '#333',
-    lineHeight: '1.4',
-  },
-  checkIcon: {
-    color: '#2a9d8f',
-    fontWeight: 'bold',
-    fontSize: '1.1rem',
-  },
-
-  // Grid de Sono e Alimentação
-  gridRotina: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-    gap: '1.5rem',
-  },
-  cardRotina: {
-    backgroundColor: '#f8f9fa',
-    borderRadius: '16px',
-    padding: '1.5rem',
-    border: '1px solid #edf2f7',
-  },
-
-  // Grid de Atividades
-  gridAtividades: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
-    gap: '1rem',
-  },
-  cardAtividade: {
-    display: 'flex',
-    alignItems: 'flex-start',
-    gap: '1rem',
-    backgroundColor: '#fefae0',
-    padding: '1.2rem',
-    borderRadius: '16px',
-    border: '1px solid #f4a261',
-  },
-  numeroAtividade: {
-    backgroundColor: '#e76f51',
-    color: '#fff',
-    borderRadius: '50%',
-    width: '28px',
-    height: '28px',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    fontWeight: 'bold',
-    fontSize: '0.9rem',
-    flexShrink: 0,
-  },
-  textoAtividade: {
-    margin: 0,
-    fontSize: '0.95rem',
-    color: '#2b2d42',
-    lineHeight: '1.5',
-  },
-
-  // Alertas
-  alertaBox: {
-    backgroundColor: '#fff0f3',
-    border: '1px solid #ff4d6d',
-    borderRadius: '16px',
-    padding: '1.5rem',
-  },
-  textoAlerta: {
-    fontSize: '1.05rem',
-    color: '#590d22',
-    lineHeight: '1.6',
-    marginBottom: '1rem',
-  },
-  notaRodape: {
-    fontSize: '0.85rem',
-    color: '#8d99ae',
-    fontStyle: 'italic',
-    display: 'block',
-  }
-};
