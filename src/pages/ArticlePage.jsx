@@ -16,38 +16,60 @@ import NavbarPublica from '../NavbarPublica';
 export default function ArticlePage() {
   const { id } = useParams(); // Pega o ID passado na URL (ex: /artigo/5)
   const [artigoData, setArtigoData] = useState(null);
+  const [artigosMaisLidos, setArtigosMaisLidos] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    async function buscarArtigoDoSupabase() {
+    async function carregarDados() {
       if (!id) return;
 
       setLoading(true);
-      const { data, error } = await supabase
-        .from('artigos')
-        .select('*')
-        .eq('id', id)
-        .single(); // Pega exatamente o registro correspondente ao ID
+      try {
+        // 1. Incrementa a view do artigo atual
+        const { data: artigoAtual } = await supabase
+          .from('artigos')
+          .select('views')
+          .eq('id', id)
+          .single();
 
-      if (error) {
-        console.error('Erro ao carregar o artigo do Supabase:', error.message);
-      } else {
-        setArtigoData(data);
+        if (artigoAtual) {
+          const novasViews = (artigoAtual.views || 0) + 1;
+          await supabase
+            .from('artigos')
+            .update({ views: novasViews })
+            .eq('id', id);
+        }
+
+        // 2. Busca o artigo completo para exibir na tela
+        const { data: dadosArtigo, error: erroArtigo } = await supabase
+          .from('artigos')
+          .select('*')
+          .eq('id', id)
+          .single();
+
+        if (erroArtigo) throw erroArtigo;
+        setArtigoData(dadosArtigo);
+
+        // 3. Busca direta das mais lidas para a Sidebar
+        const { data: maisLidos, error: erroMaisLidos } = await supabase
+          .from('artigos')
+          .select('*')
+          .order('views', { ascending: false })
+          .limit(3);
+
+        if (!erroMaisLidos && maisLidos) {
+          setArtigosMaisLidos(maisLidos);
+        }
+
+      } catch (error) {
+        console.error('Erro ao carregar dados:', error.message);
+      } finally {
+        setLoading(false);
       }
-      setLoading(false);
     }
 
-    buscarArtigoDoSupabase();
+    carregarDados();
   }, [id]);
-
-  if (loading) {
-    return <div style={{ textAlign: 'center', padding: '50px' }}>Carregando matéria...</div>;
-  }
-
-  if (!artigoData) {
-    return <div style={{ textAlign: 'center', padding: '50px' }}>Artigo não encontrado.</div>;
-  }
-
   return (
     <div className="justify-content-center">
       <NavbarPublica/>
@@ -61,19 +83,19 @@ export default function ArticlePage() {
         <div className="conteudo-com-sidebar">
           <main className="conteudo-principal">
             {/* Formatação segura da data */}
-              <ArticleHeader 
-                categoria={artigoData?.categoria}
-                titulo={artigoData?.titulo}
-                autor={artigoData?.autor} 
-                data={artigoData?.created_at ? new Date(artigoData.created_at).toLocaleDateString('pt-BR') : ''} 
-              />
+            <ArticleHeader 
+              categoria={artigoData?.categoria}
+              titulo={artigoData?.titulo}
+              autor={artigoData?.autor} 
+              data={artigoData?.created_at ? new Date(artigoData.created_at).toLocaleDateString('pt-BR') : ''} 
+            />
             <ArticleBody conteudo={artigoData?.conteudo} />
             <AuthorCard autor={artigoData?.autor} />
             <RelatedPosts />
           </main>
 
-          {/* Sidebar */}
-          <SideBar />
+          {/* Sidebar recebendo a lista de mais lidos */}
+          <SideBar artigos={artigosMaisLidos} />
         </div>
 
         {/* Banner Inferior */}

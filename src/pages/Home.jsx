@@ -12,6 +12,7 @@ import Sidebar from './Sidebar';
 import GridTresCard from './GridTresCard';
 import './Home.css';
 import NavbarArticle from './NavbarArticle';
+
 function Home() {
   const [listaArtigos, setListaArtigos] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -84,9 +85,8 @@ function Home() {
 
         </main>
 
-        <aside className="sidebar-container">
-          <Sidebar />
-        </aside>
+        {/* Sidebar chamada de forma limpa, sem embrulhar em outra tag aside */}
+        <Sidebar artigos={listaArtigos} />
       </div>
 
       <Footer />

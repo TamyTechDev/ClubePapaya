@@ -1,11 +1,11 @@
-import NavbarPublica from "./NavbarPublica"
-import NavbarArticle from "./pages/NavbarArticle"
-import PageBody from "./pages/PageBody"
-import BannerADSCard from "./pages/BannerADSCard"
+import NavbarPublica from "../NavbarPublica";
+import NavbarArticle from "./NavbarArticle";
+import PageBody from "./PageBody";
+import BannerADSCard from "./BannerADSCard"
 
-import RelatedPosts from "./pages/RelatedPosts"
-import SideBar from "./pages/Sidebar"
-import Footer from "./Footer"
+import RelatedPosts from "./RelatedPosts"
+import SideBar from "./Sidebar"
+import Footer from "../Footer"
 
 function Convidados (){
     return (

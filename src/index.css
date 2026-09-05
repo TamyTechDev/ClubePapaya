@@ -56,11 +56,13 @@
   padding: 0;
   box-sizing: border-box;
 }
-
 html, body {
   width: 100%;
   max-width: 100%;
-  overflow-x: hidden;
+ 
+  /* Garante que a altura flua naturalmente para o sticky funcionar de ponta a ponta */
+  height: auto; 
+  min-height: 100vh;
 }
 
 #root {
