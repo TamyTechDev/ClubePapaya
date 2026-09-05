@@ -18,7 +18,7 @@ export default function NavbarPublica({ onOpenModal }) {
 
         <ul className="navbar-links">
           <li><Link to="/">Início</Link></li>
-          <li><Link to="/guia">Guia</Link></li>
+          <li><Link to="/TimeLine">Guia</Link></li>
           <li><Link to="/sobre">Propósito</Link></li>
           <li><Link to="/convidados">Convidados</Link></li>
         </ul>
