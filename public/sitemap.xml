@@ -16,7 +16,7 @@
     <url>
         <loc>https://www.clubepapaya.com.b/convidados</loc>
         <changefreq>weekly</changefreq>
-        <priority>0.9</priority>
+        <priority>0.7</priority>
     </url>
     <url>
         <loc>https://www.clubepapaya.com.b/timeline</loc>
@@ -28,11 +28,15 @@
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
-
-
-        <url>
-        <loc>https://www.clubepapaya.com.br/artigo/19</loc>
+    <url>
+        <loc>https://www.clubepapaya.com.b/guia</loc>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
+    </url>
+
+        <url>
+        <loc>https://www.clubepapaya.com.br/artigo/18</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.95</priority>
     </url>
 </urlset>
