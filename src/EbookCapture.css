@@ -1,0 +1,74 @@
+.capture-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+  font-family: sans-serif;
+}
+
+.capture-card {
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+}
+
+.capture-card h2 {
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.capture-card p {
+  color: #666;
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+.capture-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.capture-form input {
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 14px;
+  outline: none;
+}
+
+.capture-form input:focus {
+  border-color: #007bff;
+}
+
+.capture-form button, .download-btn {
+  background-color: #007bff;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  transition: background 0.2s;
+}
+
+.capture-form button:hover, .download-btn:hover {
+  background-color: #0056b3;
+}
+
+.success-box {
+  margin-top: 15px;
+}
+
+.message {
+  margin-top: 15px;
+  font-size: 13px;
+  color: #444;
+}

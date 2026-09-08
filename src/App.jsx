@@ -7,12 +7,13 @@ import Convidados from './pages/Convidados';
 import Sobre from './pages/Sobre';
 import CategoriaPage from './pages/CategoriaPage';
 import TimeLine from './pages/TimeLine';
+import AdminPost from './pages/AdminPost';
 
 function App() {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/admin-secret-papaya" />
+      <Route path="/admin-secret-papaya" element={<AdminPost />} />
       <Route path="/artigo/:id" element={<ArticlePage />} />
       <Route path="/sobre" element={<Sobre />} />
       <Route path="/convidados" element={<Convidados />} />
