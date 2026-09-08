@@ -9,6 +9,7 @@ import AuthorCard from './AuthorCard';
 import RelatedPosts from './RelatedPosts';
 import BannerADSCard from './BannerADSCard';
 import SideBar from './Sidebar';
+import EbookModal from './EbookModal'; // Ajuste o caminho se necessário
 
 import './ArticlePage.css';
 import NavbarPublica from '../NavbarPublica';
@@ -18,6 +19,9 @@ export default function ArticlePage() {
   const [artigoData, setArtigoData] = useState(null);
   const [artigosMaisLidos, setArtigosMaisLidos] = useState([]);
   const [loading, setLoading] = useState(true);
+  
+  // Estado para controlar a abertura da tela de captura de e-mail
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     async function carregarDados() {
@@ -70,6 +74,25 @@ export default function ArticlePage() {
 
     carregarDados();
   }, [id]);
+
+  // Intercepta cliques nos links de e-book dentro do texto do artigo
+  useEffect(() => {
+    const handleContentClick = (e) => {
+      const target = e.target.closest('a');
+      if (target && target.getAttribute('data-action') === 'abrir-captura') {
+        e.preventDefault(); // Impede o link de navegar para lugar nenhum
+        setIsModalOpen(true); // Abre o modal de e-mail
+      }
+    };
+
+    document.addEventListener('click', handleContentClick);
+    return () => document.removeEventListener('click', handleContentClick);
+  }, []);
+
+  if (loading) {
+    return <p style={{ textAlign: 'center', padding: '50px' }}>Carregando artigo...</p>;
+  }
+
   return (
     <div className="justify-content-center">
       <NavbarPublica/>
@@ -101,6 +124,9 @@ export default function ArticlePage() {
         {/* Banner Inferior */}
         <BannerADSCard />
       </div>
+
+      {/* Modal de Captura de E-mail acionado pelos links do artigo */}
+      <EbookModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </div>
   );
 }
