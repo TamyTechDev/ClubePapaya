@@ -14,11 +14,12 @@ function App() {
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/admin-secret-papaya" element={<AdminPost />} />
-      <Route path="/artigo/:id" element={<ArticlePage />} />
+      {/* Mudança feita aqui: de :id para :slug */}
+      <Route path="/artigo/:slug" element={<ArticlePage />} />
       <Route path="/sobre" element={<Sobre />} />
       <Route path="/convidados" element={<Convidados />} />
       <Route path="/timeline" element={<TimeLine />} />
-       <Route path="/guia" element={<TimeLine />} />
+      <Route path="/guia" element={<TimeLine />} />
       
       {/* Rota dinâmica para as categorias da Navbar */}
       <Route path="/categoria/:nome" element={<CategoriaPage />} />

@@ -54,7 +54,7 @@ function Home() {
           {/* Seção Superior - 1 Destaque Principal + 2 Secundários */}
           <section className="secao-artigo">
             {artigoPrincipal && (
-              <Link to={`/artigo/${artigoPrincipal.id}`} className="artigo-principal">
+              <Link to={`/artigo/${artigoPrincipal.slug}`} className="artigo-principal">
                 <img src={artigoPrincipal.imagem} alt={artigoPrincipal.titulo} />
                 <h2>{artigoPrincipal.titulo}</h2>
               </Link>
@@ -62,7 +62,7 @@ function Home() {
 
             <div className="artigos-secundario">
               {artigosSecundarios.map((artigo) => (
-                <Link to={`/artigo/${artigo.id}`} key={artigo.id} className="artigo-secundario">
+                <Link to={`/artigo/${artigo.slug}`} key={artigo.id} className="artigo-secundario">
                   <img src={artigo.imagem} alt={artigo.titulo} />
                   <h4>{artigo.titulo}</h4>
                 </Link>

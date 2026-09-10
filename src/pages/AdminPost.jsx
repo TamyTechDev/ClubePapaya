@@ -4,6 +4,18 @@ import 'react-quill-new/dist/quill.snow.css';
 import { supabase } from '../supabaseClient';
 import './AdminPost.css';
 
+// Função utilitária para transformar o título em URL amigável
+function criarSlug(texto) {
+  return texto
+    .toString()
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^\w\s-]/g, '')
+    .trim()
+    .replace(/\s+/g, '-');
+}
+
 function AdminPost() {
   const [id, setId] = useState(null); // Guarda o ID se estiver editando
   const [titulo, setTitulo] = useState('');
@@ -72,8 +84,12 @@ function AdminPost() {
     setLoading(true);
     setMensagem('');
 
+    // Gera o slug automaticamente com base no título preenchido
+    const slugGerado = criarSlug(titulo);
+
     const dadosArtigo = {
       titulo,
+      slug: slugGerado, // Aqui entra a URL amigável para o Supabase
       categoria,
       imagem: imagem || 'https://via.placeholder.com/600x400',
       conteudo,
@@ -202,4 +218,4 @@ function AdminPost() {
   );
 }
 
-export default AdminPost;
+export default AdminPost; // Ou export default AdminPost dependendo da sua config

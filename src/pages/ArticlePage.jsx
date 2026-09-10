@@ -9,50 +9,43 @@ import AuthorCard from './AuthorCard';
 import RelatedPosts from './RelatedPosts';
 import BannerADSCard from './BannerADSCard';
 import SideBar from './Sidebar';
-import EbookModal from './EbookModal'; // Ajuste o caminho se necessário
+import EbookModal from './EbookModal';
 
 import './ArticlePage.css';
 import NavbarPublica from '../NavbarPublica';
 
 export default function ArticlePage() {
-  const { id } = useParams(); // Pega o ID passado na URL (ex: /artigo/5)
+  const { slug } = useParams(); // Mudança aqui: agora pegamos o slug da URL
   const [artigoData, setArtigoData] = useState(null);
   const [artigosMaisLidos, setArtigosMaisLidos] = useState([]);
   const [loading, setLoading] = useState(true);
   
-  // Estado para controlar a abertura da tela de captura de e-mail
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     async function carregarDados() {
-      if (!id) return;
+      if (!slug) return;
 
       setLoading(true);
       try {
-        // 1. Incrementa a view do artigo atual
-        const { data: artigoAtual } = await supabase
-          .from('artigos')
-          .select('views')
-          .eq('id', id)
-          .single();
-
-        if (artigoAtual) {
-          const novasViews = (artigoAtual.views || 0) + 1;
-          await supabase
-            .from('artigos')
-            .update({ views: novasViews })
-            .eq('id', id);
-        }
-
-        // 2. Busca o artigo completo para exibir na tela
+        // 1. Busca o artigo pelo slug para pegar os dados e o id (precisamos do id para atualizar as views)
         const { data: dadosArtigo, error: erroArtigo } = await supabase
           .from('artigos')
           .select('*')
-          .eq('id', id)
+          .eq('slug', slug) // Mudança aqui: busca por slug
           .single();
 
         if (erroArtigo) throw erroArtigo;
         setArtigoData(dadosArtigo);
+
+        // 2. Incrementa a view usando o ID do artigo que acabamos de buscar
+        if (dadosArtigo) {
+          const novasViews = (dadosArtigo.views || 0) + 1;
+          await supabase
+            .from('artigos')
+            .update({ views: novasViews })
+            .eq('id', dadosArtigo.id);
+        }
 
         // 3. Busca direta das mais lidas para a Sidebar
         const { data: maisLidos, error: erroMaisLidos } = await supabase
@@ -73,15 +66,15 @@ export default function ArticlePage() {
     }
 
     carregarDados();
-  }, [id]);
+  }, [slug]); // Mudança aqui: o useEffect agora dispara quando o slug muda
 
   // Intercepta cliques nos links de e-book dentro do texto do artigo
   useEffect(() => {
     const handleContentClick = (e) => {
       const target = e.target.closest('a');
       if (target && target.getAttribute('data-action') === 'abrir-captura') {
-        e.preventDefault(); // Impede o link de navegar para lugar nenhum
-        setIsModalOpen(true); // Abre o modal de e-mail
+        e.preventDefault();
+        setIsModalOpen(true);
       }
     };
 
@@ -99,13 +92,10 @@ export default function ArticlePage() {
       <NavbarArticle />
       
       <div className="layout-grid">
-        {/* Banner Superior */}
         <BannerADSCard />
         
-        {/* Wrapper flex para matéria e sidebar ficarem lado a lado */}
         <div className="conteudo-com-sidebar">
           <main className="conteudo-principal">
-            {/* Formatação segura da data */}
             <ArticleHeader 
               categoria={artigoData?.categoria}
               titulo={artigoData?.titulo}
@@ -117,15 +107,12 @@ export default function ArticlePage() {
             <RelatedPosts />
           </main>
 
-          {/* Sidebar recebendo a lista de mais lidos */}
           <SideBar artigos={artigosMaisLidos} />
         </div>
 
-        {/* Banner Inferior */}
         <BannerADSCard />
       </div>
 
-      {/* Modal de Captura de E-mail acionado pelos links do artigo */}
       <EbookModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </div>
   );
