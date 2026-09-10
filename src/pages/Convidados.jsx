@@ -26,7 +26,7 @@ function Convidados() {
       },
       { 
         id: 3, 
-        nome: "Clediane Lemos", 
+        nome: "Cleidiane Lemos", 
         foto: "https://res.cloudinary.com/dpynm0sf/image/upload/v1788632393/benji.png", 
         bio: "Mãe de 1 | Empreendedora da Benji Cakes | Psicológa." 
       },
